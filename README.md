@@ -31,9 +31,10 @@ When `sbne` is given a `.notebook` file, it unzips the given file to get access 
 - [Testing Guide](docs/testing.md): Details about test files and how to check that the exporter works properly.
 
 ## Requirements
-- **Python**: 3.10 or higher.
+- **Python**: 3.10 or higher (3.12 or 3.13 recomended).
 - **Python Pip**: If not included in Python package, same version as Python.
 - **Python venv**: If not included in Python package, same version as Python.
+- **System Dependencies**: Cairo.
 - **Dependencies**: Listed in [`requirements.txt`](requirements.txt).
 
 ## Installation
@@ -44,34 +45,44 @@ Nothing to see here... (yet!) :3
 ### From Source
 Install and run this program from its source code.
 
-1. Install host dependencies: `python`, `python-pip`, `python-venv` and `git` (optional, download source code manually from this repo).
-2. Clone this repo and change the working directory to the new installation dir.
-3. Create and activate python virtual environment and name it `.venv`.
-4. Install all the required libraries with `pip`	.
-5. Run `src/main.py`.
-
-In order to launch again the program after the installation, make sure to be inside the same path where you installed the source code (inside `smartboard-notebook-exporter` folder). Then, activate the same virtual environment (`.venv`) and run `src/main.py`.
-
 <details>
 <summary><b>Linux (Debian/Ubuntu)</b></summary>
 
-**Installation and first run:**
+**Installation and first run**
+
+1. **System dependencies installation**: `python`, `pip`, `venv`, `git` and CairoSVG libraries (`libcairo2`, `libffi-dev` and `python3-dev`) . Access to `sudo` is required (unless dependencies are already fulfilled, in that case go to the next step).
+
 ```bash
 sudo apt update
-sudo apt install python3 python3-pip python3-venv git
+sudo apt install python3 python3-pip python3-venv git libcairo2 libffi-dev python3-dev
+```
 
+2. **Clone source code**: Clone this repo and change the working directory to the new installation dir.
+
+```bash
 git clone https://github.com/MikeCat2008/smartboard-notebook-exporter.git
 cd smartboard-notebook-exporter
+```
 
+3. **Python enviroment setup**: Create and activate python virtual environment and name it `.venv`. Install all the required libraries listed in `requirements.txt` with `pip`.
+
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
 
-pip3 install --no-cache-dir -r requirements.txt
+pip3 install -r requirements.txt
+```
 
+4. **Run**:
+
+```bash
 python3 src/main.py
 ```
 
 **Subsequent runs:**
+
+In order to launch again the program after the installation, make sure to be inside the same folder where you cloned the source code. Then, activate the same virtual environment (`.venv`) and run `src/main.py`.
+
 ```bash
 source .venv/bin/activate
 python3 src/main.py
@@ -79,27 +90,50 @@ python3 src/main.py
 
 </details>
 
-<!-- The instalation on Windows machines has not been tested -->
 <details>
 <summary><b>Windows</b></summary>
 
 **Installation and first run:**
+
+1. **System dependencies installation**: `python`, `git` and [GTK Runtime](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer) (for CairoSVG). Access to Administrator mode is required (unless dependencies are already fulfilled, in that case go to the next step).
+
+```powershell
+# Run this in a terminal as Administrator
+winget install python Git.Git tschoonj.GTKForWindows
+exit
+```
+
+> **NOTE**  
+> After installing all system dependencies, closing the terminal with `exit` and opening a new one is required for the system PATH to update.
+
+2. **Clone source code**: Clone this repo and change the working directory to the new installation dir.
+
 ```powershell
 git clone https://github.com/MikeCat2008/smartboard-notebook-exporter.git
 cd smartboard-notebook-exporter
+```
 
+3. **Python enviroment setup**: Create and activate python virtual environment and name it `.venv`. Install all the required libraries listed in `requirements.txt` with `pip`.
+
+```powershell
 python -m venv .venv
-.\.venv\Scripts\activate
-
+.venv\Scripts\activate
 pip install -r requirements.txt
+```
 
+4. **Run**:
+
+```powershell
 python src/main.py
 ```
 
 **Subsequent runs:**
+
+In order to launch again the program after the installation, make sure to be inside the same folder where you cloned the source code.
+
 ```powershell	
-.\.venv\Scripts\Activate.ps1
-python src/main.py
+.venv\Scripts\activate
+python src\main.py
 ```
 
 </details>
@@ -111,18 +145,20 @@ The CLI will guide you through selecting your `.notebook` file and configuring t
 - **`.notebook` file path**: Path to your `.notebook` file (absolute or relative).
 - **Export Type**: Choose one of the 6 output types. 
 
-```bash
-~/smartboard-notebook-exporter$ source .venv/bin/activate
-(.venv) ~/smartboard-notebook-exporter$ python3 src/main.py
+```text
+(.venv) $ python src/main.py
 '.notebook' file path: ./tests/01-30-26 11-14-16 AM.notebook
 Export types: 'svg-fixed-pages', 'png-pages', 'pdf-svg-pages', 'pdf-png-pages', 'pdf-svg-merged', 'pdf-png-merged'.
 Export Type: pdf-svg-merged
-zip_utils.unzip: Directory '/tmp/sbne_01-30-26 11-14-16 AM_1uef7kff/extracted' successfully created.
-zip_utils.unzip: Extracting '01-30-26 11-14-16 AM.notebook'...
-zip_utils.unzip: File '01-30-26 11-14-16 AM.notebook' successfully extracted in '/tmp/sbne_01-30-26 11-14-16 AM_1uef7kff/extracted'.
-(.venv) ~/smartboard-notebook-exporter$ ls -l ./tests/01-30-26\ 11-14-16\ AM_pdf-svg-merged.pdf
-'./tests/01-30-26 11-14-16 AM_pdf-svg-merged.pdf'
-(.venv) ~/smartboard-notebook-exporter$ 
+(.venv) $ 
+```
+
+The exported file will be stored in the same path as the chosen `.notebook` file. The naming scheme of this output file is: `Original File Name`_`Output Type`.`Output Type Extension`
+
+```text
+[dir] tests
+├─ [notebook] 01-30-26 11-14-16 AM.notebook
+└─ [pdf] 01-30-26 11-14-16 AM_pdf-svg-merged.pdf
 ```
 
 ## License
