@@ -23,6 +23,9 @@ class SVGManager:
         self.root = None
         self.main_group = None
 
+        self.has_images = False
+        self.images = []
+
     def load(self):
         # Load and validate SVG file
         funcion_tag = f"{__name__}.{self.__class__.__name__}.{self.load.__name__}"
@@ -43,6 +46,16 @@ class SVGManager:
         except Exception as e:
             raise type(e)(f"{funcion_tag}: An error occurred while parsing '{self.file_path}': {e}")
 
+    def search_image_tag(self):
+        funcion_tag = f"{__name__}.{self.__class__.__name__}.{self.load.__name__}"
+
+        self.images = self.root.xpath(".//image")
+        if self.images != []:
+            print(f"{funcion_tag}: Found tag '<image>' in file '{self.file_path}'.")
+            self.has_images = True
+        else:
+            print(f"{funcion_tag}: Tag '<image>' not found in file '{self.file_path}'. Disabling image embeding.")
+            self.has_images = False
 
     def get_svg_attributes(self, attr):
         # Search for 'attr' attribute inside <svg> root tag and return it as a list of strings.
@@ -70,6 +83,16 @@ class SVGManager:
             for group in self.main_group:
                 group.set("transform", transform_str)
 
+    def get_image_attr(self, img_node, attr):
+        funcion_tag = f"{__name__}.{self.__class__.__name__}.{self.get_image_attr.__name__}"
+        val = img_node.get(str(attr))
+        if not val:
+            return ""
+        return val
+
+    def set_image_attr(self, img_node, attr, value):
+        img_node.set(str(attr), str(value))
+
     def save(self, output_path):
         # Save file in binary mode
         with open(output_path, "wb") as f:
@@ -85,6 +108,14 @@ def main():
         editor.load()
     except Exception as e:
         print(f"svg_editor: DEBUGGING: An error ocurred with 'SVGManager.load()': {e}")
+        return
+
+    print(f"\nsvg_editor: DEBUGGING: Testing class method 'SVGManager.has_images()'.")
+    try:
+        editor.search_image_tag()
+        print(editor.has_images)
+    except Exception as e:
+        print(f"svg_editor: DEBUGGING: An error ocurred with 'SVGManager.has_images()': {e}")
         return
 
     print(f"\nsvg_editor: DEBUGGING: Testing class method 'SVGManager.get_svg_attributes()'.")

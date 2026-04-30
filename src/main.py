@@ -21,6 +21,9 @@ import svg_exporter
 from pathlib import Path
 import tempfile
 
+import mimetypes
+import base64
+
 def main(infile, export_type):
     notebook_path = Path(infile).resolve()  # Get absolute path to the specified file
     if not notebook_path.exists():
@@ -73,6 +76,33 @@ def main(infile, export_type):
 
                 # translate(X.xx,Y.yy)
                 editor.apply_main_group_transform(f"translate({svg_cbounds[0]*-1},{svg_cbounds[1]*-1})")
+
+                editor.search_image_tag()
+                if editor.has_images:
+                    XLINK_HREF = "{http://www.w3.org/1999/xlink}href"
+
+                    for img in editor.images:
+                        img_width = editor.get_image_attr(img, "width")
+                        if img_width:
+                            editor.set_image_attr(img, "width", img_width.replace(",","."))
+
+                        img_height = editor.get_image_attr(img, "height")
+                        if img_height:
+                            editor.set_image_attr(img, "height", img_height.replace(",","."))
+
+                        try:
+                            href_path_rel = editor.get_image_attr(img, XLINK_HREF)
+                            if not href_path_rel:
+                                print(f"Warn: Skipping image '{img}'. Path not found.")
+                                continue
+                            href_path_abs = extracted_dir / href_path_rel
+                            href_mime = mimetypes.guess_type(href_path_abs)[0]
+                            with open(href_path_abs, "rb") as href_file:
+                                href_b64_string = base64.b64encode(href_file.read()).decode("utf-8")
+                            editor.set_image_attr(img, XLINK_HREF, f"data:{href_mime};base64,{href_b64_string}")
+                        except Exception as e:
+                            print(f"Warn: Skipping image '{img}'. An error ocurred: {e}.")
+                            continue
 
                 outfile = fixed_svg_dir / svg.name
                 editor.save(outfile)
