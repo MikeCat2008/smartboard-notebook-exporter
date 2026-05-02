@@ -24,7 +24,7 @@ import tempfile
 import mimetypes
 import base64
 
-def main(infile, export_type):
+def main(infile, export_type, export_path, export_name, otnextension_bool):
     notebook_path = Path(infile).resolve()  # Get absolute path to the specified file
     if not notebook_path.exists():
         print(f"Path '{notebook_path}' does not exist.")
@@ -39,6 +39,26 @@ def main(infile, export_type):
     if export_type not in ['svg-fixed-pages', 'png-pages', 'pdf-svg-pages', 'pdf-png-pages', 'pdf-svg-merged', 'pdf-png-merged']:
         print(f"'{export_type}' is not a valid export type.")
         return
+
+    # opt
+    if export_path:
+        export_path = Path(export_path).resolve()
+        if not export_path.exists():
+            print(f"Path '{export_path}' does not exist.")
+            return
+        if not export_path.is_dir():
+            print(f"'{export_path}' is not a directory.")
+            return
+    else:
+        export_path = notebook_dir
+
+    # opt
+    if not export_name:
+        export_name = notebook_name
+
+    if not isinstance(otnextension_bool, bool):
+        print(f"'{otnextension_bool}' is not a 'bool'. Adding 'Output Type Name Extension' to output file name.")
+        otnextension_bool = True
 
     tempfile_prefix = f"sbne_{notebook_name}_"
     extracted_dir_name = "extracted"
@@ -112,7 +132,7 @@ def main(infile, export_type):
                 return
 
         try:
-            exporter = svg_exporter.SVGExporter(fixed_svg_dir, notebook_dir, notebook_name)
+            exporter = svg_exporter.SVGExporter(fixed_svg_dir, export_path, export_name, otnextension_bool)
             exporter.export(export_type)
         except Exception as e:
             print(f"{error_msg} {e}")
@@ -122,4 +142,14 @@ if __name__ == "__main__":
     infile = input("'.notebook' file path: ")
     print("Export types: 'svg-fixed-pages', 'png-pages', 'pdf-svg-pages', 'pdf-png-pages', 'pdf-svg-merged', 'pdf-png-merged'.")
     export_type = input("Export Type: ")
-    main(infile, export_type)
+    export_path = input("Export Path (opt): ")
+    export_name = input("Export Name (opt): ")
+    otnextension_bool = input("Output Name Extension. y/n (y): ")
+    if otnextension_bool in ("y","Y","1"):
+        otnextension_bool = True
+    elif otnextension_bool in ("n","N","0"):
+        otnextension_bool = False
+    else:
+        otnextension_bool = True
+
+    main(infile, export_type, export_path, export_name, otnextension_bool)

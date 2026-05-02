@@ -23,7 +23,7 @@ import img2pdf
 from pypdf import PdfWriter, PdfReader
 
 class SVGExporter:
-    def __init__(self, fixed_svg_dir, output_parent_dir, base_name):
+    def __init__(self, fixed_svg_dir, output_parent_dir, base_name, otnextension_bool):
         funcion_tag = f"{__name__}.{self.__class__.__name__}.{self.__init__.__name__}"
 
         self.fixed_svg_dir = Path(fixed_svg_dir).resolve()
@@ -41,6 +41,10 @@ class SVGExporter:
 
         self.base_name = str(base_name)
 
+        self.otnextension_bool = otnextension_bool
+        if not isinstance(self.otnextension_bool, bool):
+            raise ValueError(f"'{otnextension_bool}' is not a 'bool'.")
+
         svg_files_unsorted = list(self.fixed_svg_dir.glob("*.svg"))
         # Try to sort files by lexical order: 0 - 1 - 2 - ... - 9 - 10 - 11 - ...
         self.svg_files = sorted(
@@ -51,7 +55,11 @@ class SVGExporter:
             raise FileNotFoundError(f"{funcion_tag}: Fixed SVG directory '{fixed_svg_dir}' does not contain any SVG ('*.svg') file.")
 
     def _get_full_path(self, suffix, ext):
-        filename = f"{self.base_name}_{suffix}.{ext}"
+        if self.otnextension_bool:
+            filename = f"{self.base_name}_{suffix}.{ext}"
+        else:
+            filename = f"{self.base_name}.{ext}"
+
         return self.output_parent_dir / filename
 
     def _export_merged_pdf(self, mode):
