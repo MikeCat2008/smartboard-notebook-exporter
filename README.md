@@ -144,20 +144,29 @@ After installation, run the program as specified in your installing method.
 The CLI will guide you through selecting your `.notebook` file and configuring the parameters for the desired output format.
 - **`.notebook` file path**: Path to your `.notebook` file (absolute or relative).
 - **Export Type**: Choose one of the 6 output types. 
+- **Export Path** (optional): Change the output directory for your output file. If left blank, the output directory will be the same where the `.notebook` has been taken from.
+- **Export Name** (optional): Change the output file name. If left blank, the output name will be the same as the input `.notebook` file.
+- **Output Name Extension**: Boolean flag to append to the export name "_`Output Type`". If left blank or answered wrong, it will be assumed as the default (y, yes).
 
+Any exported file will end with its respective ".`Output Type Extension`".
+
+**Usage Example**
 ```text
 (.venv) $ python src/main.py
 '.notebook' file path: ./tests/01-30-26 11-14-16 AM.notebook
 Export types: 'svg-fixed-pages', 'png-pages', 'pdf-svg-pages', 'pdf-png-pages', 'pdf-svg-merged', 'pdf-png-merged'.
 Export Type: pdf-svg-merged
+Export Path (opt): ./
+Export Name (opt): 
+Output Name Extension. y/n (y): Y
+
 (.venv) $ 
 ```
 
-The exported file will be stored in the same path as the chosen `.notebook` file. The naming scheme of this output file is: `Original File Name`_`Output Type`.`Output Type Extension`
-
 ```text
-[dir] tests
-├─ [notebook] 01-30-26 11-14-16 AM.notebook
+[dir] . # Current Directory
+├─[dir] tests
+| └─ [notebook] 01-30-26 11-14-16 AM.notebook
 └─ [pdf] 01-30-26 11-14-16 AM_pdf-svg-merged.pdf
 ```
 
