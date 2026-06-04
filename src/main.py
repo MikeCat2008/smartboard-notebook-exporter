@@ -27,28 +27,23 @@ import base64
 def main(infile, export_type, export_path, export_name, otnextension_bool):
     notebook_path = Path(infile).resolve()  # Get absolute path to the specified file
     if not notebook_path.exists():
-        print(f"Path '{notebook_path}' does not exist.")
-        return
+        raise FileNotFoundError(f"Path '{notebook_path}' does not exist.")
     if not notebook_path.is_file():
-        print(f"'{notebook_path}' is not a file.")
-        return
+        raise ValueError(f"'{notebook_path}' is not a valid file.")
 
     notebook_name = notebook_path.stem      # Get name without any extension of the specified file
     notebook_dir = notebook_path.parent
 
     if export_type not in ['svg-fixed-pages', 'png-pages', 'pdf-svg-pages', 'pdf-png-pages', 'pdf-svg-merged', 'pdf-png-merged']:
-        print(f"'{export_type}' is not a valid export type.")
-        return
+        raise ValueError(f"'{export_type}' is not a valid export type.")
 
     # opt
     if export_path:
         export_path = Path(export_path).resolve()
         if not export_path.exists():
-            print(f"Path '{export_path}' does not exist.")
-            return
+            raise FileNotFoundError(f"Path '{export_path}' does not exist.")
         if not export_path.is_dir():
-            print(f"'{export_path}' is not a directory.")
-            return
+            raise NotADirectoryError(f"'{export_path}' is not a directory.")
     else:
         export_path = notebook_dir
 
@@ -71,14 +66,14 @@ def main(infile, export_type, export_path, export_name, otnextension_bool):
         try:
             zip_utils.unzip(notebook_path, base_tmp_path, extracted_dir_name)
         except Exception as e:
-            print(error_msg)
+            raise type(e)(f"{error_msg} {e}")
 
         extracted_dir = base_tmp_path / extracted_dir_name
         fixed_svg_dir = base_tmp_path / fixed_svg_dir_name
         try:
             fixed_svg_dir.mkdir()
         except Exception as e:
-            print(f"{error_msg} {e}")
+            raise type(e)(f"{error_msg} {e}")
         svgs_extracted = extracted_dir.glob("page*.svg")
         for svg in svgs_extracted:
             try:
@@ -128,15 +123,13 @@ def main(infile, export_type, export_path, export_name, otnextension_bool):
                 editor.save(outfile)
 
             except Exception as e:
-                print(f"{error_msg} {e}")
-                return
+                raise type(e)(f"{error_msg} {e}")
 
         try:
             exporter = svg_exporter.SVGExporter(fixed_svg_dir, export_path, export_name, otnextension_bool)
             exporter.export(export_type)
         except Exception as e:
-            print(f"{error_msg} {e}")
-            return
+            raise type(e)(f"{error_msg} {e}")
 
 if __name__ == "__main__":
     infile = input("'.notebook' file path: ")
@@ -152,4 +145,7 @@ if __name__ == "__main__":
     else:
         otnextension_bool = True
 
-    main(infile, export_type, export_path, export_name, otnextension_bool)
+    try:
+        main(infile, export_type, export_path, export_name, otnextension_bool)
+    except Exception as e:
+        print(f"An error ocurred: {e}")
