@@ -31,6 +31,12 @@ When `sbne` is given a `.notebook` file, it unzips the given file to get access 
 - [Testing Guide](docs/testing.md): Details about test files and how to check that the exporter works properly.
 
 ## Requirements
+
+### Binary
+- [***Tha binary***](https://github.com/MikeCat2008/smartboard-notebook-exporter/releases/latest) :3  
+No requirements at all, only download the executable compatible with your computer and that's all! :D
+
+### Source code
 - **Python**: 3.10 or higher (3.12 or 3.13 recomended).
 - **Python Pip**: If not included in Python package, same version as Python.
 - **Python venv**: If not included in Python package, same version as Python.
@@ -40,7 +46,40 @@ When `sbne` is given a `.notebook` file, it unzips the given file to get access 
 ## Installation
 
 ### From Binary
-Nothing to see here... (yet!) :3
+Download and run this program from a fully portable binary. No administrator/superuser permission required. Only GUI (Graphics User Interface) available.
+
+You only need to download the binary specific for your OS (Windows, Linux...) and Host Architecture (AMD64, ARM64...) from this repository [Releases Tab](https://github.com/MikeCat2008/smartboard-notebook-exporter/releases/latest) and execute this program. If your OS/Host Architecture does not appear on the Releases Tab, you will need to install this program from source and run it or build a binary specific for your device.
+
+**Available Binaries**
+
+<table>
+    <thead>
+        <tr>
+            <th>Operating System</th>
+            <th>Architecture</th>
+            <th>Notes / Compatibility</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Debian Trixie</td>
+            <td>AMD64</td>
+            <td>Debian 13 Trixie</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Windows</td>
+            <td rowspan="2">AMD64</td>
+            <td>Windows 10</td>
+        </tr>
+        <tr>
+            <td>Windows 11</td>
+        </tr>
+    </tbody>
+</table>
+
+> **DISCLAIMER**  
+> The only trusted source of compiled binaries of this program is this [GitHub Repository](https://github.com/MikeCat2008/smartboard-notebook-exporter).  
+> Other download mirrors or sources can be a potential risk of viruses or other kind of malware. This is because binaries are just the machine code (a bunch of ones and zeros) created from a source code, which can hardly be traced back to that origin. Therefore, two binaries could look identical but behave in very different ways. Checking the SHA256 of the binaries is highly encouraged.
 
 ### From Source
 Install and run this program from its source code.
@@ -73,19 +112,21 @@ source .venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-4. **Run**:
+4. **Run**: Run either the Command Line Interface (CLI) with `src/main.py` or the Graphical User Interface (GUI) with `src/gui.py`.
 
 ```bash
-python3 src/main.py
+python3 src/main.py # CLI
+python3 src/gui.py  # GUI
 ```
 
 **Subsequent runs:**
 
-In order to launch again the program after the installation, make sure to be inside the same folder where you cloned the source code. Then, activate the same virtual environment (`.venv`) and run `src/main.py`.
+In order to launch again the program after the installation, make sure to be inside the same folder where you cloned the source code. Then, activate the same virtual environment (`.venv`) and run the desired User Interface.
 
 ```bash
 source .venv/bin/activate
-python3 src/main.py
+python3 src/main.py # CLI
+python3 src/gui.py  # GUI
 ```
 
 </details>
@@ -121,22 +162,31 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-4. **Run**:
+4. **Run**: Run either the Command Line Interface (CLI) with `src/main.py` or the Graphical User Interface (GUI) with `src/gui.py`.
 
 ```powershell
-python src/main.py
+python src\main.py # CLI
+python src\gui.py  # GUI
 ```
 
 **Subsequent runs:**
 
-In order to launch again the program after the installation, make sure to be inside the same folder where you cloned the source code.
+In order to launch again the program after the installation, make sure to be inside the same folder where you cloned the source code. Then, activate the same virtual environment (`.venv`) and run the desired User Interface.
 
 ```powershell	
 .venv\Scripts\activate
-python src\main.py
+python src\main.py # CLI
+python src\gui.py  # GUI
 ```
 
 </details>
+
+## Building
+In order to build a binary of this program, it is required to have previously done the installaton from source and at least one run to ensure that everything is working correctly with the installation.
+
+To build this program, activate the virtual environment (`.venv`) of the installation and run the `build` script that corresponds to the OS where the installation has been done: `.sh` for Linux based and `.bat` for Windows. When the script finishes packing and building the program, the resulting binary will be placed in the folder `dist/` inside the main directory of this project. This binary is fully portable and does not require superuser/administrator permission to run.
+
+The building script uses PyInstaller to pack the source code among the python interpreter, all python libraries required and any system libraries which are required by the python libraries, inside one single and portable executable. It is important to mention that the binaries produced by PyInstaller are not cross-compatible, meaning that, for example, a binary compiled for Windows, won't run on Debian or viceversa.
 
 ## Usage
 After installation, run the program as specified in your installing method.
