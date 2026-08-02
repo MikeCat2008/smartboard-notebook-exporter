@@ -40,6 +40,7 @@ No requirements at all, only download the executable compatible with your comput
 - **Python**: 3.10 or higher (3.12 or 3.13 recomended).
 - **Python Pip**: If not included in Python package, same version as Python.
 - **Python venv**: If not included in Python package, same version as Python.
+- **Python Tkinter**: If not included in Python package, same version as Python.
 - **System Dependencies**: Cairo.
 - **Dependencies**: Listed in [`requirements.txt`](requirements.txt).
 
@@ -89,11 +90,11 @@ Install and run this program from its source code.
 
 **Installation and first run**
 
-1. **System dependencies installation**: `python`, `pip`, `venv`, `git` and CairoSVG libraries (`libcairo2`, `libffi-dev` and `python3-dev`) . Access to `sudo` is required (unless dependencies are already fulfilled, in that case go to the next step).
+1. **System dependencies installation**: `python`, `pip`, `venv`, `tkinter`, `git` and CairoSVG libraries (`libcairo2`, `libffi-dev` and `python3-dev`) . Access to `sudo` is required (unless dependencies are already fulfilled, in that case go to the next step).
 
 ```bash
 sudo apt update
-sudo apt install python3 python3-pip python3-venv git libcairo2 libffi-dev python3-dev
+sudo apt install python3 python3-pip python3-venv python3-tk git libcairo2 libffi-dev python3-dev
 ```
 
 2. **Clone source code**: Clone this repo and change the working directory to the new installation dir.
