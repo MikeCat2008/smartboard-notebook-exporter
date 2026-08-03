@@ -190,18 +190,36 @@ To build this program, activate the virtual environment (`.venv`) of the install
 The building script uses PyInstaller to pack the source code among the python interpreter, all python libraries required and any system libraries which are required by the python libraries, inside one single and portable executable. It is important to mention that the binaries produced by PyInstaller are not cross-compatible, meaning that, for example, a binary compiled for Windows, won't run on Debian or viceversa.
 
 ## Usage
-After installation, run the program as specified in your installing method.
-
-The CLI will guide you through selecting your `.notebook` file and configuring the parameters for the desired output format.
-- **`.notebook` file path**: Path to your `.notebook` file (absolute or relative).
+In order to export your `.notebook` file into the desired output format it is needed to configure the following parameters:
+- **`.notebook` file path**: Path to your `.notebook` file (absolute or relative to the path where the program has been launched).
 - **Export Type**: Choose one of the 6 output types. 
 - **Export Path** (optional): Change the output directory for your output file. If left blank, the output directory will be the same where the `.notebook` has been taken from.
 - **Export Name** (optional): Change the output file name. If left blank, the output name will be the same as the input `.notebook` file.
-- **Output Name Extension**: Boolean flag to append to the export name "_`Output Type`". If left blank or answered wrong, it will be assumed as the default (y, yes).
+- **Output Name Extension**: Boolean flag to append to the export name "_`Output Type`". If left blank or invalid input, it will be assumed as the default (y, yes).
 
 Any exported file will end with its respective ".`Output Type Extension`".
 
-**Usage Example**
+After installation, run the program as specified in your installing method.
+
+### GUI
+Graphical User Interface. Available through both binary and source code installations. It is the recommended option for most of the users.
+
+**Usage**
+
+When the program's GUI opens, the user will be prompted from top to bottom with the application name, all the fields to configure all the parameters needed to export the notebook file, the export button and useful links.
+
+The first group of fields is `Notebook File`, which lets the user choose what `.notebook` file to export by specifying the path to that file. The file can be specified by either typing the relative path to where the app has been launched or the absolute path, or selecting the file by pressing the `BROWSE` button. Only `.notebook` files are allowed. If the path to the file is empty, doesn't exist or is not a valid file, when trying to export, a window with an error will appear.
+
+The second group of fields is `Export File`, which lets the user configure the output file. The `Output Folder` field behaves like the Notebook File field but it only allows valid relative or absolute paths to folders instead of files. If left blank, the file will be output to the same directory as the file that is being exported. The `Name` field lets the user choose a custom name for the output file. If left blank, the file will use the same name as the file that is being exported. The `Output Type` selection field lets the user choose among the available export types. The `Extension Name Toggle` toggle adds an identifier for the output type chosen for the output file. Below there is a live preview of the name of the output file, including the custom (or default) name, the extension name (if activated) and the output extension that corresponds with the output type selected.
+
+The export button, when pressed, will start the export process. This process will end by outputing the output file and showing an info pop-up window unless there are invalid parameters or in the event that an error occurs while exporting, which will result in the interruption of the export process shown by a warning pop-up window.
+
+The useful links will open the users default browser when clicked. These links are this [GitHub Repository](https://github.com/MikeCat2008/smartboard-notebook-exporter) and the [GPLv3 License](https://www.gnu.org/licenses/gpl-3.0.html).
+
+### CLI
+Command Line Interface. Only available throught source code execution.
+
+**Usage**
 ```text
 (.venv) $ python src/main.py
 '.notebook' file path: ./tests/01-30-26 11-14-16 AM.notebook
