@@ -192,6 +192,19 @@ class ExporterApp:
             self.var_expfile_nameprev = f"{name}.{ext}"
         self.update_texts()
 
+    def fileoverwrite_check(self):
+        if self.var_expfile_outdir.get():
+            export_path = Path(self.var_expfile_outdir.get()).resolve()
+        else:
+            export_path = Path(self.var_nbfile.get()).resolve().parent
+
+        self.expfile_nameprev_update()
+
+        if Path(export_path, self.var_expfile_nameprev).is_file:
+            return True
+        else:
+            return False
+
     ## --- Export ---
     def export_enable(self):
         self.var_export_active.set(False)
@@ -203,8 +216,8 @@ class ExporterApp:
         self.btn_export.config(bg="#af4c50", state="disabled")
         self.update_texts()
 
-        # 50ms for UI Rendering before export_process
-        self.btn_export.after(50, self.export_process)
+        self.root.update() # Force UI Rendering
+        self.export_process()
 
     def export_process(self):
         infile = self.var_nbfile.get().strip()
@@ -222,6 +235,17 @@ class ExporterApp:
             ).show()
             self.export_enable()
             return
+
+        if self.fileoverwrite_check():
+            fileoverwrite_answer = tk.messagebox.askyesno(
+                icon="warning",
+                message=self.gettext("msgbox_warn_fileow_msg"),
+                detail=self.gettext("msgbox_warn_fileow_dtl")
+            )
+            self.root.update() # Force UI Rendering
+            if not fileoverwrite_answer:
+                self.export_enable()
+                return
 
         try:
             main.main(infile, export_type, export_path, export_name, otnextension_bool)
