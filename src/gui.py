@@ -200,7 +200,7 @@ class ExporterApp:
 
         self.expfile_nameprev_update()
 
-        if Path(export_path, self.var_expfile_nameprev).is_file:
+        if Path(export_path, self.var_expfile_nameprev).is_file():
             return True
         else:
             return False
