@@ -57,23 +57,24 @@ You only need to download the binary specific for your OS (Windows, Linux...) an
     <thead>
         <tr>
             <th>Operating System</th>
+            <th>Version</th>
             <th>Architecture</th>
-            <th>Notes / Compatibility</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>Debian Trixie</td>
-            <td>AMD64</td>
+            <td>Debian</td>
             <td>Debian 13 Trixie</td>
+            <td>AMD64</td>
         </tr>
         <tr>
             <td rowspan="2">Windows</td>
-            <td rowspan="2">AMD64</td>
             <td>Windows 10</td>
+            <td>AMD64</td>
         </tr>
         <tr>
             <td>Windows 11</td>
+            <td>AMD64</td>
         </tr>
     </tbody>
 </table>
