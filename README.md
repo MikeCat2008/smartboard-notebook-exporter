@@ -202,17 +202,21 @@ Any exported file will end with its respective ".`Output Type Extension`".
 After installation, run the program as specified in your installing method.
 
 ### GUI
-Graphical User Interface. Available through both binary and source code installations. It is the recommended option for most of the users.
+Graphical User Interface. The GUI is available in both binary releases and source code installations. It is the recommended option for most users.
 
 **Usage**
 
-When the program's GUI opens, the user will be prompted from top to bottom with the application name, all the fields to configure all the parameters needed to export the notebook file, the export button and useful links.
+When the program's GUI opens, the user will be prompted from top to bottom with the application name, the version management section, the GUI language selection, all the fields to configure all the parameters needed to export the notebook file, the export button and useful links.
+
+At the version management section the user can see the current build version of the app and check for updates. The `Check Updates` button is a link to the [Latest Release](https://github.com/MikeCat2008/smartboard-notebook-exporter/releases/latest) GitHub page, where the user can download the newest build of the app. It is highly recommended to check from time to time this page in order to be up to date with feature updates and bug fixes.
+
+The language selection section shows the user the current language that is being used for the GUI and the buttons to choose the available languages. English is the default language.
 
 The first group of fields is `Notebook File`, which lets the user choose what `.notebook` file to export by specifying the path to that file. The file can be specified by either typing the relative path to where the app has been launched or the absolute path, or selecting the file by pressing the `BROWSE` button. Only `.notebook` files are allowed. If the path to the file is empty, doesn't exist or is not a valid file, when trying to export, a window with an error will appear.
 
 The second group of fields is `Export File`, which lets the user configure the output file. The `Output Folder` field behaves like the Notebook File field but it only allows valid relative or absolute paths to folders instead of files. If left blank, the file will be output to the same directory as the file that is being exported. The `Name` field lets the user choose a custom name for the output file. If left blank, the file will use the same name as the file that is being exported. The `Output Type` selection field lets the user choose among the available export types. The `Extension Name Toggle` toggle adds an identifier for the output type chosen for the output file. Below there is a live preview of the name of the output file, including the custom (or default) name, the extension name (if activated) and the output extension that corresponds with the output type selected.
 
-The export button, when pressed, will start the export process. This process will end by outputing the output file and showing an info pop-up window unless there are invalid parameters or in the event that an error occurs while exporting, which will result in the interruption of the export process shown by a warning pop-up window.
+When the export button is pressed, it will start the export process while also giving feedback to the user by disabling itself and changing its appearance. This process will usualy end by outputing the output file and showing an info pop-up window. The export process might be interrupted if there are invalid parameters, file overwrite risk or in the event that an error occurs while exporting, which will result in an interruption of this shown by a warning/error pop-up window. After the export process is over (wether it has been successful or not), the export button will re-enable itself.
 
 The useful links will open the users default browser when clicked. These links are this [GitHub Repository](https://github.com/MikeCat2008/smartboard-notebook-exporter) and the [GPLv3 License](https://www.gnu.org/licenses/gpl-3.0.html).
 
