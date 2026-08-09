@@ -30,7 +30,7 @@ All `.notebook` files always fulfill a minimal structure of 6 files at the root 
 - **`page0.svg`**: An SVG file. Created at the same time the `.notebook` file is created. The initial whiteboard page.
 
 
-- **`preview.png`**: A PNG file. It is copied from an internal template of the Smartboard as it sometimes has a "last modification" date from "2021-02-03 18:05", independent of the `.notebook` creation. Its purpose is to be an image preview for Smartboard's own filebrowser. This image defaults with plain white 200x150 px. If `page0.svg` is not blank, `preview.png` will be overwritten with a rasterization of this SVG file of 200x113px if it has been created with the witeboard app, and 620x360 px if it cames from a screenshot.
+- **`preview.png`**: A PNG file. It is copied from an internal template of the Smartboard as it sometimes has a "last modification" date from "2021-02-03 18:05", independent of the `.notebook` creation. Its purpose is to be an image preview for Smartboard's own filebrowser. This image defaults with plain white 200x150 px. If `page0.svg` is not blank, `preview.png` will be overwritten with a rasterization of this SVG file of 200x113 px if it has been created with the whiteboard app, and 620x360 px if it cames from a screenshot.
 
 - **`settings.xml`**: An XML file. It is copied from an internal template of the Smartboard as it sometimes has a "last modification" date from "2021-02-03 18:05", independent of the `.notebook` creation. Support file, its purpose has not been identified yet as it is the same for all test files. This file appears to be modified when it has been created through a screenshot instead of the whiteboard app.
 
@@ -65,7 +65,7 @@ Whenever the user presses the button of "Add a New Page", a new SVG file is crea
 #### Images
 If the whiteboard contains an image, regardless of it being a screenshot, an inserted photo, a video miniature, a pattern for a tiling background or a picture of a widget, a folder named `images` containing the required pictures, is created at the root level of the `.notebook` file.
 
-The images inside the directory `images` are named with a UUID (Universally Unique Identifier) except in the case of a screenshot, then the only image . All the pictures are PNG files except the tiles for the tiled backgrounds, which are JPEG files. Apparently, all the pictures have their file extension, except the images inserted from the web.
+The images inside the directory `images` are named with a UUID (Universally Unique Identifier) except in the case of a screenshot, then the only image will be named `background.jpeg`. All the pictures are PNG files except the tiles for the tiled backgrounds, which are JPEG files. Apparently, all the pictures have their file extension, except the images inserted from the web.
 
 Example of the `images` directory taken from the ["Main" (01-30-26 11-14-16 AM.notebook)](../tests/01-30-26%2011-14-16%20AM.notebook) test file.
 ```
@@ -80,7 +80,7 @@ Example of the `images` directory taken from the ["Main" (01-30-26 11-14-16 AM.n
 ```
 
 ## Page SVG Analysis
-The contents of each page of the `.notebook` file, are stored inside individual SVG files.
+The contents of each page of the `.notebook` file are stored inside individual SVG files.
 
 The SVG Standar followed by these SVG files is fully compatible with any other software designed to work with these type of files.
 

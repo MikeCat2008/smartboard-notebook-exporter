@@ -3,7 +3,7 @@
 Export your Smartboard `.notebook` files locally and however you want (and we support).
 
 > **testing.md**  
-> Read this document in: [ENGLISH](testing.md)
+> Read this document in: [ENGLISH](testing.md) [ESPAÑOL](testing.es.md)
 
 ---
 

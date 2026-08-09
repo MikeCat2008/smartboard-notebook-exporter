@@ -3,7 +3,7 @@
 Export your Smartboard `.notebook` files locally and however you want (and we support).
 
 > **README.md**  
-> Read this document in: [ENGLISH](README.md)
+> Read this document in: [ENGLISH](README.md) [ESPAÑOL](README.es.md)
 
 ---
 
@@ -59,6 +59,7 @@ You only need to download the binary specific for your OS (Windows, Linux...) an
             <th>Operating System</th>
             <th>Version</th>
             <th>Architecture</th>
+            <th>Binary</th>
         </tr>
     </thead>
     <tbody>
@@ -66,11 +67,13 @@ You only need to download the binary specific for your OS (Windows, Linux...) an
             <td>Debian</td>
             <td>Debian 13 Trixie</td>
             <td>AMD64</td>
+            <td>sbne-vX.X.X-debian-trixie-amd64</td>
         </tr>
         <tr>
             <td rowspan="2">Windows</td>
             <td>Windows 10</td>
             <td>AMD64</td>
+            <td rowspan="2">sbne-vX.X.X-windows-amd64.exe</td>
         </tr>
         <tr>
             <td>Windows 11</td>
