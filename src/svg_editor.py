@@ -98,6 +98,46 @@ class SVGManager:
         with open(output_path, "wb") as f:
             f.write(etree.tostring(self.tree, encoding="utf-8", xml_declaration=True, pretty_print=True))
 
+class ManifestParser:
+    def __init__(self, file_path):
+        self.file_path = file_path
+        self.tree = None
+        self.ns = "{http://www.imsglobal.org/xsd/imscp_v1p1}" #namespace; xmlns root attrib
+        self.resource_pageorder = None
+
+    def load(self):
+        # Load and validate imsmanifest XML file
+        funcion_tag = f"{__name__}.{self.__class__.__name__}.{self.load.__name__}"
+
+        try:
+            self.tree = etree.parse(self.file_path)
+
+            # Search for "resouce" tag with the page order
+            self.resource_pageorder = self.tree.find(f".//{self.ns}resources/{self.ns}resource[@identifier='group0_pages']")
+            if self.resource_pageorder is None:
+                raise ValueError(f"{funcion_tag}: File '{self.file_path}' lacks required XML tags.")
+
+        except Exception as e:
+            raise type(e)(f"{funcion_tag}: An error occurred while parsing '{self.file_path}': {e}")
+
+    def get_pageorder(self):
+        if self.resource_pageorder is None:
+            raise RuntimeError(f"{funcion_tag}: Must call load() before get_pageorder()")
+
+        pageorder_pages = []
+
+        for page in self.resource_pageorder:
+            pageorder_pages.append(page.get("href"))
+
+        pageorder_numwidth = len(str(len(pageorder_pages)))
+        pageorder_rename_map = {}
+
+        for idx, page in enumerate(pageorder_pages):
+            padded_idx = str(idx).zfill(pageorder_numwidth)
+            pageorder_rename_map[page] = f"{padded_idx}_{page}"
+
+        return pageorder_rename_map
+
 def main():
     print(f"\nsvg_editor: DEBUGGING: Called 'main()' funcion. Funcion is entended to be used for debugging.")
 
@@ -149,6 +189,23 @@ def main():
         editor.save(outfile)
     except Exception as e:
         print(f"svg_editor: DEBUGGING: An error ocurred with 'SVGManager.save()': {e}")
+        return
+
+    print(f"\nsvg_editor: DEBUGGING: Testing class method 'ManifestParser.load()'")
+    try:
+        infile = input("imsmanifest XML file full path: ")
+        manparser = ManifestParser(infile)
+        manparser.load()
+    except Exception as e:
+        print(f"svg_editor: DEBUGGING: An error ocurred with 'ManifestParser.load()': {e}")
+        return
+
+    print(f"\nsvg_editor: DEBUGGING: Testing class method 'ManifestParser.get_pageorder()'")
+    try:
+        pageorder = manparser.get_pageorder()
+        print(pageorder)
+    except Exception as e:
+        print(f"svg_editor: DEBUGGING: An error ocurred with 'ManifestParser.get_pageorder()': {e}")
         return
 
     print(f"\nsvg_editor: DEBUGGING: No tests remaining. Bye! :3")

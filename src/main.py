@@ -68,8 +68,19 @@ def main(infile, export_type, export_path, export_name, otnextension_bool):
         except Exception as e:
             raise type(e)(f"{error_msg} {e}")
 
-        extracted_dir = base_tmp_path / extracted_dir_name
-        fixed_svg_dir = base_tmp_path / fixed_svg_dir_name
+        extracted_dir = Path(base_tmp_path, extracted_dir_name)
+        fixed_svg_dir = Path(base_tmp_path, fixed_svg_dir_name)
+        manifest_path = Path(extracted_dir, "imsmanifest.xml")
+        if not manifest_path.exists():
+            raise FileNotFoundError(f"Path '{manifest_path}' does not exist.")
+        if not manifest_path.is_file():
+            raise ValueError(f"'{manifest_path}' is not a valid file.")
+        try:
+            manparser = svg_editor.ManifestParser(manifest_path)
+            manparser.load()
+            pageorder = manparser.get_pageorder()
+        except Exception as e:
+            raise type(e)(f"{error_msg} {e}")
         try:
             fixed_svg_dir.mkdir()
         except Exception as e:
@@ -119,7 +130,7 @@ def main(infile, export_type, export_path, export_name, otnextension_bool):
                             print(f"Warn: Skipping image '{img}'. An error ocurred: {e}.")
                             continue
 
-                outfile = fixed_svg_dir / svg.name
+                outfile = fixed_svg_dir / pageorder[svg.name]
                 editor.save(outfile)
 
             except Exception as e:
