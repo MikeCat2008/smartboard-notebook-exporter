@@ -16,7 +16,7 @@ This program allows you to take the `.notebook` file (which you can save to exte
 This project is provided "as is", without warranty of any kind.
 
 ### How it works
-When `sbne` is given a `.notebook` file, it unzips the given file to get access to each page, stored as individual `.svg` files. Then, it fixes each `.svg` to adjust its canvas size and align all the contents to the new canvas. And finally, all the fixed `.svg` files are exported to the desired output type.
+When `sbne` is given a `.notebook` file, it unzips it to access each page stored as individual `.svg` files. Then, it fixes each `.svg` to adjust its canvas size, aligns all contents to the new canvas, and appends its logical order position to the filename. Finally, all the fixed `.svg` files are exported to the desired output format.
 
 ### Supported Output Types
 - `svg-fixed-pages`: A zip file containing all fixed `.svg` pages.

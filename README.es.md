@@ -16,7 +16,7 @@ Este programa te permite tomar el archivo `.notebook` (el cual le puedes extraer
 Este proyecto es otorgado "tal y como es", sin ningún tipo de garantía.
 
 ### Funcionamiento
-Cuando se le da un archivo `.notebook` a `sbne`, la aplicación lo descomprime para conseguir acceder a cada página, almacenadas como archivos `.svg` por cada página. Después, se arreglan cada uno de los archivos `.svg` para ajustar su tamaño de lienzo y ajustar los contenidos al nuevo lienzo. Finalmente, se exportan todos los archivos `.svg` ya arreglados al formato elegido.
+Cuando se le da un archivo `.notebook` a `sbne`, la aplicación lo descomprime para conseguir acceder a cada página, almacenadas como archivos `.svg` individuales. Después, se arreglan cada uno de los archivos `.svg` para ajustar su tamaño de lienzo y ajustar los contenidos al nuevo lienzo, además de agregar al nombre de los archivos su posición según el orden lógico. Finalmente, se exportan todos los archivos `.svg` ya arreglados al formato elegido.
 
 ### Formatos de Salida Disponibles
 - `svg-fixed-pages`: Un archivo zip con todas las páginas `.svg` ya arregladas.
