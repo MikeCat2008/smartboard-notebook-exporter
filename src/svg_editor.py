@@ -25,6 +25,8 @@ class SVGManager:
 
         self.has_images = False
         self.images = []
+        self.has_hilighters = False
+        self.hilighters = []
 
     def load(self):
         # Load and validate SVG file
@@ -39,7 +41,7 @@ class SVGManager:
                 raise ValueError(f"{funcion_tag}: File '{self.file_path}' is not SVG.")
 
             # Search for "g" tag in first level of depth of root tag
-            self.main_group = self.root.xpath("./g")
+            self.main_group = self.root.find("./g")
             if self.main_group == []:
                 raise ValueError(f"{funcion_tag}: File '{self.file_path}' lacks required SVG tags.")
 
@@ -56,6 +58,17 @@ class SVGManager:
         else:
             print(f"{funcion_tag}: Tag '<image>' not found in file '{self.file_path}'. Disabling image embeding.")
             self.has_images = False
+
+    def search_hilighters(self):
+        funcion_tag = f"{__name__}.{self.__class__.__name__}.{self.load.__name__}"
+
+        self.hilighters = self.root.xpath(".//*[@hilighter='1']")
+        if self.hilighters != []:
+            print(f"{funcion_tag}: Found hilighter strokes in file '{self.file_path}'.")
+            self.has_hilighters = True
+        else:
+            print(f"{funcion_tag}: No hilighter strokes found in file '{self.file_path}'. Disabling hilighter processing.")
+            self.has_hilighters = False
 
     def get_svg_attributes(self, attr):
         # Search for 'attr' attribute inside <svg> root tag and return it as a list of strings.
@@ -80,11 +93,9 @@ class SVGManager:
 
     def apply_main_group_transform(self, transform_str):
         if self.main_group != []:
-            for group in self.main_group:
-                group.set("transform", transform_str)
+            self.main_group.set("transform", transform_str)
 
     def get_image_attr(self, img_node, attr):
-        funcion_tag = f"{__name__}.{self.__class__.__name__}.{self.get_image_attr.__name__}"
         val = img_node.get(str(attr))
         if not val:
             return ""
@@ -92,6 +103,13 @@ class SVGManager:
 
     def set_image_attr(self, img_node, attr, value):
         img_node.set(str(attr), str(value))
+
+    def set_hilighters_layer(self):
+        #SVG_NS = "http://www.w3.org/2000/svg"
+        g_highlighters = etree.Element("g", id="hilighters_layer")
+        self.main_group.insert(0, g_highlighters)
+        for elem in self.hilighters:
+            g_highlighters.append(elem)
 
     def save(self, output_path):
         # Save file in binary mode

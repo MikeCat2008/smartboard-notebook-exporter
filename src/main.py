@@ -130,6 +130,10 @@ def main(infile, export_type, export_path, export_name, otnextension_bool):
                             print(f"Warn: Skipping image '{img}'. An error ocurred: {e}.")
                             continue
 
+                editor.search_hilighters()
+                if editor.has_hilighters:
+                    editor.set_hilighters_layer()
+
                 outfile = fixed_svg_dir / pageorder[svg.name]
                 editor.save(outfile)
 
