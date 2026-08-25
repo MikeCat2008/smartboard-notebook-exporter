@@ -65,7 +65,7 @@ class ExporterApp:
         self.lbl_ver_curtxt = tk.Label(self.main_frame, font=("Arial", 10), bg="#f5f5f5")
         self.lbl_ver_curtxt.grid(row=3, column=0, sticky="w")
 
-        self.lbl_ver_cur = tk.Label(self.main_frame, text="v1.1.0", font=("Arial", 10, "bold"), bg="#f5f5f5")
+        self.lbl_ver_cur = tk.Label(self.main_frame, text="v1.2.0", font=("Arial", 10, "bold"), bg="#f5f5f5")
         self.lbl_ver_cur.grid(row=3, column=1, sticky="e", padx=(0,10))
 
         self.btn_ver_chkupd = tk.Button(self.main_frame, command=lambda: webbrowser.open_new("https://github.com/MikeCat2008/smartboard-notebook-exporter/releases/latest"))
