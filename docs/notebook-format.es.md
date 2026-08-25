@@ -109,3 +109,6 @@ Cuando se ajusta el tamaño del lienzo a su tamaño verdadero, todos los conteni
 Todos los archivos SVG se encuentran en la raíz del archivo `.notebook` y siguen la misma norma de nomenclatura: "page`X`.svg", donde la "`X`" representa el índice de la página, creado al sumar 1 al último índice más alto (empezando por 0).
 
 El órden de las páginas definido por el usuario no se corresponde con el órden lógico de los índices de cada página SVG. Este órden está definido en el archivo `imsmanifest.xml` dentro de su etiqueta `<resource identifier="group0_pages">`.
+
+### Trazos de Subrayador
+Cuando el usuario dibuja con la herramienta subrayador, los trazos creados tienen un atributo personalizado `hilighter="1"`. Estos trazos se muestran por debajo de cualquier otro trazo para simular el efecto de un subrayador.

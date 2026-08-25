@@ -3,7 +3,7 @@
 Export your Smartboard `.notebook` files locally and however you want (and we support).
 
 > **notebook-format.md**  
-> Read this document in: [ENGLISH](notebook-format.md)
+> Read this document in: [ENGLISH](notebook-format.md) [ESPAÑOL](notebook-format.es.md)
 
 ---
 
@@ -108,3 +108,6 @@ When the canvas size is fixed with its real size, all contents are shifted. To f
 All SVG files are located at the root level of the `.notebook`, and follow the same naming scheme: “page`X`.svg”, where the “`X`” stands for the page index, created by adding 1 to the last highest index (starting from 0).
 
 The page order defined by the user does not correspond with the logical order of the indexes of each SVG page. This page order is defined in the file `imsmanifest.xml` inside its tag `<resource identifier="group0_pages">`.
+
+### Highlighter Strokes
+Whenever the user draws with the highlighter pen, new strokes are created with a custom attribute `hilighter="1"`. These strokes render below any other type of stroke in order to resemble the effect of a highlighter.
