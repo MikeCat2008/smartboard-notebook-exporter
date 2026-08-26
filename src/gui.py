@@ -58,97 +58,107 @@ class ExporterApp:
 
         ttk.Separator(self.main_frame, orient='horizontal').grid(row=1, column=0, columnspan=4, sticky="ew", pady=(0, 10))
 
-        ## --- Version Section ---
-        self.lbl_ver = tk.Label(self.main_frame, font=("Arial", 12, "bold"), bg="#f5f5f5")
-        self.lbl_ver.grid(row=2, column=0, columnspan=2, sticky="w", padx=(0,10))
+        ## --- Config and Help Tabs ---
+        self.ntbk_confhelp = ttk.Notebook(self.main_frame)
+        self.ntbk_confhelp.grid(row=2, column=0, columnspan=4, sticky="ew")
 
-        self.lbl_ver_curtxt = tk.Label(self.main_frame, font=("Arial", 10), bg="#f5f5f5")
-        self.lbl_ver_curtxt.grid(row=3, column=0, sticky="w")
+        ### --- Version Tab ---
+        self.confhelp_tab1_ver = tk.Frame(self.ntbk_confhelp, bg="#f5f5f5", padx=5, pady=5)
+        self.ntbk_confhelp.add(self.confhelp_tab1_ver)
 
-        self.lbl_ver_cur = tk.Label(self.main_frame, text="v1.2.0", font=("Arial", 10, "bold"), bg="#f5f5f5")
-        self.lbl_ver_cur.grid(row=3, column=1, sticky="e", padx=(0,10))
+        self.lbl_ver = tk.Label(self.confhelp_tab1_ver, font=("Arial", 12, "bold"), bg="#f5f5f5")
+        self.lbl_ver.grid(row=0, column=0, columnspan=2, sticky="w", padx=(0,10))
 
-        self.btn_ver_chkupd = tk.Button(self.main_frame, command=lambda: webbrowser.open_new("https://github.com/MikeCat2008/smartboard-notebook-exporter/releases/latest"))
-        self.btn_ver_chkupd.grid(row=4, column=0, columnspan=2, sticky="ew", padx=(0,10))
+        self.lbl_ver_curtxt = tk.Label(self.confhelp_tab1_ver, font=("Arial", 10), bg="#f5f5f5")
+        self.lbl_ver_curtxt.grid(row=1, column=0, sticky="w")
 
-        ## --- i18n Section ---
-        self.lbl_lang = tk.Label(self.main_frame, font=("Arial", 12, "bold"), bg="#f5f5f5")
-        self.lbl_lang.grid(row=2, column=2, columnspan=2, sticky="w")
+        self.lbl_ver_cur = tk.Label(self.confhelp_tab1_ver, text="v1.2.0", font=("Arial", 10, "bold"), bg="#f5f5f5")
+        self.lbl_ver_cur.grid(row=1, column=1, sticky="e", padx=(0,10))
 
-        self.lbl_lang_info = tk.Label(self.main_frame, font=("Arial", 10), bg="#f5f5f5")
-        self.lbl_lang_info.grid(row=3, column=2, sticky="w")
+        self.btn_ver_chkupd = tk.Button(self.confhelp_tab1_ver, command=lambda: webbrowser.open_new("https://github.com/MikeCat2008/smartboard-notebook-exporter/releases/latest"))
+        self.btn_ver_chkupd.grid(row=2, column=0, columnspan=2, sticky="ew", padx=(0,10))
 
-        self.frame_lang = tk.Frame(self.main_frame, bg="#f5f5f5")
-        self.frame_lang.grid(row=4, rowspan=2, column=2, columnspan=2, sticky="w")
+        ### --- i18n Tab ---
+        self.confhelp_tab2_i18n = tk.Frame(self.ntbk_confhelp, bg="#f5f5f5", padx=5, pady=5)
+        self.ntbk_confhelp.add(self.confhelp_tab2_i18n)
+
+        self.lbl_lang = tk.Label(self.confhelp_tab2_i18n, font=("Arial", 12, "bold"), bg="#f5f5f5")
+        self.lbl_lang.grid(row=0, column=0, columnspan=2, sticky="w")
+
+        self.lbl_lang_info = tk.Label(self.confhelp_tab2_i18n, font=("Arial", 10), bg="#f5f5f5")
+        self.lbl_lang_info.grid(row=1, column=0, sticky="w")
+
+        self.frame_lang = tk.Frame(self.confhelp_tab2_i18n, bg="#f5f5f5")
+        self.frame_lang.grid(row=2, rowspan=2, column=0, columnspan=2, sticky="w")
 
         self.btn_lang_es = tk.Button(self.frame_lang, text="ES", width="3", command=lambda: self.set_lang("es"))
-        self.btn_lang_es.grid(row=1, column=0, sticky="w", padx=(0, 5))
+        self.btn_lang_es.grid(row=0, column=0, sticky="w", padx=(0, 5))
 
         self.btn_lang_en = tk.Button(self.frame_lang, text="EN", width="3", command=lambda: self.set_lang("en"))
-        self.btn_lang_en.grid(row=1, column=1, sticky="w", padx=(0, 5))
+        self.btn_lang_en.grid(row=0, column=1, sticky="w", padx=(0, 5))
 
-        ttk.Separator(self.main_frame, orient='horizontal').grid(row=6, column=0, columnspan=4, sticky="ew", pady=(10, 10))
+        ttk.Separator(self.main_frame, orient='horizontal').grid(row=3, column=0, columnspan=4, sticky="ew", pady=(10, 10))
 
         ## --- Notebook File Section ---
         self.lbl_nbfile = tk.Label(self.main_frame, font=("Arial", 14, "bold"), bg="#f5f5f5")
-        self.lbl_nbfile.grid(row=7, column=0, sticky="w")
+        self.lbl_nbfile.grid(row=4, column=0, sticky="w")
 
         self.ent_nbfile = tk.Entry(self.main_frame, textvariable=self.var_nbfile, width=40)
-        self.ent_nbfile.grid(row=8, column=0, columnspan=3, sticky="ew", padx=(0, 10), pady=10)
+        self.ent_nbfile.grid(row=5, column=0, columnspan=3, sticky="ew", padx=(0, 10), pady=10)
 
         self.btn_nbfile_browse = tk.Button(self.main_frame, command=self.nbfile_search)
-        self.btn_nbfile_browse.grid(row=8, column=3, sticky="ew")
+        self.btn_nbfile_browse.grid(row=5, column=3, sticky="ew")
 
         ## --- Export File Section ---
         self.lbl_expfile = tk.Label(self.main_frame, font=("Arial", 14, "bold"), bg="#f5f5f5")
-        self.lbl_expfile.grid(row=9, column=0, sticky="w", pady=(20, 5))
+        self.lbl_expfile.grid(row=6, column=0, sticky="w", pady=(20, 5))
 
         ### Output Directory
         self.lbl_expfile_outdir = tk.Label(self.main_frame, font=("Arial", 10), bg="#f5f5f5")
-        self.lbl_expfile_outdir.grid(row=10, column=0, sticky="w")
+        self.lbl_expfile_outdir.grid(row=7, column=0, sticky="w")
 
         self.ent_expfile_outdir = tk.Entry(self.main_frame, textvariable=self.var_expfile_outdir)
-        self.ent_expfile_outdir.grid(row=11, column=0, columnspan=3, sticky="ew", padx=(0, 10), pady=5)
+        self.ent_expfile_outdir.grid(row=8, column=0, columnspan=3, sticky="ew", padx=(0, 10), pady=5)
 
         self.btn_expfile_outdir = tk.Button(self.main_frame, command=self.expfile_outfold_search)
-        self.btn_expfile_outdir.grid(row=11, column=3, sticky="ew")
+        self.btn_expfile_outdir.grid(row=8, column=3, sticky="ew")
 
         ### Custom Name
         self.lbl_expfile_name = tk.Label(self.main_frame, font=("Arial", 10), bg="#f5f5f5")
-        self.lbl_expfile_name.grid(row=12, column=0, sticky="w", pady=(10, 0))
+        self.lbl_expfile_name.grid(row=9, column=0, sticky="w", pady=(10, 0))
 
         self.ent_expfile_name = tk.Entry(self.main_frame, textvariable=self.var_expfile_name)
-        self.ent_expfile_name.grid(row=13, column=0, sticky="ew", padx=(0, 5))
+        self.ent_expfile_name.grid(row=10, column=0, sticky="ew", padx=(0, 5))
 
         ### Output Type
         self.lbl_expfile_outtype = tk.Label(self.main_frame, font=("Arial", 10), bg="#f5f5f5")
-        self.lbl_expfile_outtype.grid(row=12, column=1, sticky="w", pady=(10, 0))
+        self.lbl_expfile_outtype.grid(row=9, column=1, sticky="w", pady=(10, 0))
 
         self.combo_expfile_outtype = ttk.Combobox(self.main_frame, state="readonly", textvariable=self.var_expfile_outtype, values=['svg-fixed-pages', 'png-pages', 'pdf-svg-pages', 'pdf-png-pages', 'pdf-svg-merged', 'pdf-png-merged'])
         self.combo_expfile_outtype.current(4)
-        self.combo_expfile_outtype.grid(row=13, column=1, columnspan=2, sticky="ew", padx=5)
+        self.combo_expfile_outtype.grid(row=10, column=1, columnspan=2, sticky="ew", padx=5)
 
         ### Output Type Extension Label
         self.chkbtn_expfile_outtypeext = tk.Checkbutton(self.main_frame, variable=self.var_expfile_outtypeext, bg="#f5f5f5")
-        self.chkbtn_expfile_outtypeext.grid(row=13, column=3)
+        self.chkbtn_expfile_outtypeext.grid(row=10, column=3)
 
         ### Name Preview
         self.lbl_expfile_nameprev = tk.Label(self.main_frame, font=("Courier", 10, "italic"), fg="#666", bg="#f5f5f5")
-        self.lbl_expfile_nameprev.grid(row=14, column=0, columnspan=4, sticky="w", pady=(5, 0))
+        self.lbl_expfile_nameprev.grid(row=11, column=0, columnspan=4, sticky="w", pady=(5, 0))
 
         ## --- Export Button ---
         self.btn_export = tk.Button(self.main_frame, command=self.export_start, bg="#4caf50", fg="white", font=("Arial", 12, "bold"), height=2)
-        self.btn_export.grid(row=15, column=0, columnspan=4, sticky="ew", pady=30)
+        self.btn_export.grid(row=12, column=0, columnspan=4, sticky="ew", pady=30)
 
         ## --- Links ---
         ### Link to Repo
         self.link_repo = tk.Label(self.main_frame, fg="#0056b3", bg="#f5f5f5", cursor="hand2", font=("Arial", 8, "underline"))
-        self.link_repo.grid(row=16, column=0, sticky="w")
+        self.link_repo.grid(row=13, column=0, sticky="w")
         self.link_repo.bind("<Button-1>", lambda a: webbrowser.open_new("https://github.com/MikeCat2008/smartboard-notebook-exporter"))
 
         ### Link to License
         self.link_license = tk.Label(self.main_frame, fg="#0056b3", bg="#f5f5f5", cursor="hand2", font=("Arial", 8, "underline"))
-        self.link_license.grid(row=17, column=0, sticky="w")
+        self.link_license.grid(row=14, column=0, sticky="w")
         self.link_license.bind("<Button-1>", lambda a: webbrowser.open_new("https://www.gnu.org/licenses/gpl-3.0.html"))
 
         #self.test = tk.Label(root, font=("Arial", 14))
@@ -274,9 +284,11 @@ class ExporterApp:
         return gui_locales.locales[self.var_lang].get(textkey, textkey)
 
     def update_texts(self):
+        self.ntbk_confhelp.tab(self.confhelp_tab1_ver, text=self.gettext("lbl_ver"))
         self.lbl_ver.config(text=self.gettext("lbl_ver"))
         self.lbl_ver_curtxt.config(text=self.gettext("lbl_ver_curtxt"))
         self.btn_ver_chkupd.config(text=self.gettext("btn_ver_chkupd"))
+        self.ntbk_confhelp.tab(self.confhelp_tab2_i18n, text=self.gettext("lbl_lang"))
         self.lbl_lang.config(text=self.gettext("lbl_lang"))
         self.lbl_lang_info.config(text=self.gettext("lbl_lang_info"))
         self.lbl_nbfile.config(text=self.gettext("lbl_nbfile"))
