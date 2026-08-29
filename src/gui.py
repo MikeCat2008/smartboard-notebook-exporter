@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+from textwrap import wrap
+
 import gui_locales
 import main
 
@@ -48,6 +50,15 @@ class ExporterApp:
         self.var_expfile_outtypeext.trace_add("write", self.expfile_nameprev_update)
         ## --- Export Status ---
         self.var_export_active = tk.BooleanVar(value=False)
+        ## --- Help ---
+        self.var_help1_active = False
+        self.var_help1_pindex = 1
+        self.var_help1_page_min = 1
+        self.var_help1_page_max = 11
+        self.var_help2_active = False
+        self.var_help2_pindex = 4
+        self.var_help2_page_min = 1
+        self.var_help2_page_max = 6
 
         # --- VISUAL ELEMENTS LAYOUT ---
         self.main_frame = tk.Frame(root, bg="#f5f5f5", padx=20, pady=20)
@@ -62,34 +73,61 @@ class ExporterApp:
         self.ntbk_confhelp = ttk.Notebook(self.main_frame)
         self.ntbk_confhelp.grid(row=2, column=0, columnspan=4, sticky="ew")
 
+        ### --- Help Tab ---
+        self.confhelp_tab1_help = tk.Frame(self.ntbk_confhelp, bg="#f5f5f5", padx=5, pady=5)
+        self.ntbk_confhelp.add(self.confhelp_tab1_help)
+
+        self.lbl_help = tk.Label(self.confhelp_tab1_help, font=("Arial", 12, "bold"), bg="#f5f5f5")
+        self.lbl_help.grid(row=0, column=0, sticky="w", pady=(0,10))
+
+        self.btn_help1_tuto = tk.Button(self.confhelp_tab1_help, text="Tutorial", command=self.help1_tuto)
+        self.btn_help1_tuto.grid(row=1, column=0, sticky="w", padx=(0,10))
+
+        self.lbl_help1_page = tk.Label(self.confhelp_tab1_help, font=("Arial", 10), bg="#f5f5f5")
+        self.frame_help1_pcntl = tk.Frame(self.confhelp_tab1_help, bg="#f5f5f5")
+        self.lbl_help1_pindex = tk.Label(self.frame_help1_pcntl, font=("Arial", 10), bg="#f5f5f5")
+        self.btn_help1_prev = tk.Button(self.frame_help1_pcntl, text="<", command=lambda: self.help1_tuto_pages(False), state="disabled")
+        self.btn_help1_next = tk.Button(self.frame_help1_pcntl, text=">", command=lambda: self.help1_tuto_pages(True), state="disabled")
+        self.btn_help1_exit = tk.Button(self.frame_help1_pcntl, command=self.help1_tuto_exit)
+
+        self.btn_help2_outtypes = tk.Button(self.confhelp_tab1_help, text="Output Types", command=self.help2_outtypes)
+        self.btn_help2_outtypes.grid(row=1, column=1, sticky="w")
+
+        self.lbl_help2_page = tk.Label(self.confhelp_tab1_help, font=("Arial", 10), bg="#f5f5f5")
+        self.frame_help2_pcntl = tk.Frame(self.confhelp_tab1_help, bg="#f5f5f5")
+        self.lbl_help2_pindex = tk.Label(self.frame_help2_pcntl, font=("Arial", 10), bg="#f5f5f5")
+        self.btn_help2_prev = tk.Button(self.frame_help2_pcntl, text="<", command=lambda: self.help2_outtypes_pages(False), state="disabled")
+        self.btn_help2_next = tk.Button(self.frame_help2_pcntl, text=">", command=lambda: self.help2_outtypes_pages(True), state="disabled")
+        self.btn_help2_exit = tk.Button(self.frame_help2_pcntl, command=self.help2_outtypes_exit)
+
         ### --- Version Tab ---
-        self.confhelp_tab1_ver = tk.Frame(self.ntbk_confhelp, bg="#f5f5f5", padx=5, pady=5)
-        self.ntbk_confhelp.add(self.confhelp_tab1_ver)
+        self.confhelp_tab2_ver = tk.Frame(self.ntbk_confhelp, bg="#f5f5f5", padx=5, pady=5)
+        self.ntbk_confhelp.add(self.confhelp_tab2_ver)
 
-        self.lbl_ver = tk.Label(self.confhelp_tab1_ver, font=("Arial", 12, "bold"), bg="#f5f5f5")
-        self.lbl_ver.grid(row=0, column=0, columnspan=2, sticky="w", padx=(0,10))
+        self.lbl_ver = tk.Label(self.confhelp_tab2_ver, font=("Arial", 12, "bold"), bg="#f5f5f5")
+        self.lbl_ver.grid(row=0, column=0, sticky="w", pady=(0,5))
 
-        self.lbl_ver_curtxt = tk.Label(self.confhelp_tab1_ver, font=("Arial", 10), bg="#f5f5f5")
+        self.lbl_ver_curtxt = tk.Label(self.confhelp_tab2_ver, font=("Arial", 10), bg="#f5f5f5")
         self.lbl_ver_curtxt.grid(row=1, column=0, sticky="w")
 
-        self.lbl_ver_cur = tk.Label(self.confhelp_tab1_ver, text="v1.2.0", font=("Arial", 10, "bold"), bg="#f5f5f5")
-        self.lbl_ver_cur.grid(row=1, column=1, sticky="e", padx=(0,10))
+        self.lbl_ver_cur = tk.Label(self.confhelp_tab2_ver, text="v1.2.0", font=("Arial", 10, "bold"), bg="#f5f5f5")
+        self.lbl_ver_cur.grid(row=1, column=1, sticky="e")
 
-        self.btn_ver_chkupd = tk.Button(self.confhelp_tab1_ver, command=lambda: webbrowser.open_new("https://github.com/MikeCat2008/smartboard-notebook-exporter/releases/latest"))
+        self.btn_ver_chkupd = tk.Button(self.confhelp_tab2_ver, command=lambda: webbrowser.open_new("https://github.com/MikeCat2008/smartboard-notebook-exporter/releases/latest"))
         self.btn_ver_chkupd.grid(row=2, column=0, columnspan=2, sticky="ew", padx=(0,10))
 
         ### --- i18n Tab ---
-        self.confhelp_tab2_i18n = tk.Frame(self.ntbk_confhelp, bg="#f5f5f5", padx=5, pady=5)
-        self.ntbk_confhelp.add(self.confhelp_tab2_i18n)
+        self.confhelp_tab3_i18n = tk.Frame(self.ntbk_confhelp, bg="#f5f5f5", padx=5, pady=5)
+        self.ntbk_confhelp.add(self.confhelp_tab3_i18n)
 
-        self.lbl_lang = tk.Label(self.confhelp_tab2_i18n, font=("Arial", 12, "bold"), bg="#f5f5f5")
-        self.lbl_lang.grid(row=0, column=0, columnspan=2, sticky="w")
+        self.lbl_lang = tk.Label(self.confhelp_tab3_i18n, font=("Arial", 12, "bold"), bg="#f5f5f5")
+        self.lbl_lang.grid(row=0, column=0, sticky="w", pady=(0,5))
 
-        self.lbl_lang_info = tk.Label(self.confhelp_tab2_i18n, font=("Arial", 10), bg="#f5f5f5")
+        self.lbl_lang_info = tk.Label(self.confhelp_tab3_i18n, font=("Arial", 10), bg="#f5f5f5")
         self.lbl_lang_info.grid(row=1, column=0, sticky="w")
 
-        self.frame_lang = tk.Frame(self.confhelp_tab2_i18n, bg="#f5f5f5")
-        self.frame_lang.grid(row=2, rowspan=2, column=0, columnspan=2, sticky="w")
+        self.frame_lang = tk.Frame(self.confhelp_tab3_i18n, bg="#f5f5f5")
+        self.frame_lang.grid(row=2, column=0, columnspan=2, sticky="w")
 
         self.btn_lang_es = tk.Button(self.frame_lang, text="ES", width="3", command=lambda: self.set_lang("es"))
         self.btn_lang_es.grid(row=0, column=0, sticky="w", padx=(0, 5))
@@ -167,6 +205,222 @@ class ExporterApp:
         self.update_texts()
 
     # --- FUNCIONS ---
+    ## --- Help ---
+    def help1_tuto(self):
+        self.var_help1_active = True
+
+        self.btn_help1_tuto.grid_forget()
+        self.btn_help2_outtypes.grid_forget()
+
+        self.lbl_help1_page.grid(row=1, column=0, sticky="w", pady=(0,5))
+        self.lbl_help1_page.config(text=self.gettext("lbl_help1_pages")[self.var_help1_pindex - 1])
+        self.frame_help1_pcntl.grid(row=2,column=0, sticky="w")
+        self.lbl_help1_pindex.grid(row=0, column=0, padx=(10,10))
+        self.lbl_help1_pindex.config(text=f"{self.var_help1_pindex}/{self.var_help1_page_max}")
+        self.btn_help1_prev.grid(row=0, column=1)
+        if self.var_help1_pindex > self.var_help1_page_min:
+            self.btn_help1_prev.config(state="normal")
+        self.btn_help1_next.grid(row=0, column=2)
+        if self.var_help1_pindex < self.var_help1_page_max:
+            self.btn_help1_next.config(state="normal")
+        self.btn_help1_exit.grid(row=0, column=3, padx=(10,0))
+
+        if self.var_help1_pindex == 1:
+            self.help1_shades(1,1,1,1,1,1,1,1,1)
+        if self.var_help1_pindex == 2:
+            self.help1_shades(0,1,1,1,1,1,1,1,1)
+        if self.var_help1_pindex == 3:
+            self.help1_shades(0,0,1,1,1,1,1,1,1)
+        if self.var_help1_pindex == 4:
+            self.help1_shades(1,1,0,1,1,1,1,1,1)
+        if self.var_help1_pindex == 5:
+            self.help1_shades(1,1,0,0,1,1,1,1,1)
+        if self.var_help1_pindex == 6:
+            self.help1_shades(1,1,0,1,0,1,1,1,1)
+        if self.var_help1_pindex == 7:
+            self.help1_shades(1,1,0,1,1,0,1,1,1)
+        if self.var_help1_pindex == 8:
+            self.help1_shades(1,1,0,1,1,1,0,1,1)
+        if self.var_help1_pindex == 9:
+            self.help1_shades(1,1,0,1,1,1,1,0,1)
+        if self.var_help1_pindex == 10:
+            self.help1_shades(1,1,1,1,1,1,1,1,0)
+        if self.var_help1_pindex == 11:
+            self.help1_shades(1,1,1,1,1,1,1,1,1)
+
+        self.update_texts()
+
+    def help1_shades(self, lbl_nbfile, nb_block, lbl_expfile, expfile_outdir_block, expfile_name_block, expfile_outtype_block, expfile_outtypeext, expfile_nameprev, btn_export):
+        # send smth that evaluates to True (1) for disabled shade
+        # send smth that evaluates to False (0) for normal shade
+
+        if lbl_nbfile:
+            self.lbl_nbfile.config(fg="#a3a3a3")
+        else:
+            self.lbl_nbfile.config(fg="#000000")
+
+        if nb_block:
+            self.ent_nbfile.config(state="disabled")
+            self.btn_nbfile_browse.config(state="disabled")
+        else:
+            self.ent_nbfile.config(state="normal")
+            self.btn_nbfile_browse.config(state="normal")
+
+        if lbl_expfile:
+            self.lbl_expfile.config(fg="#a3a3a3")
+        else:
+            self.lbl_expfile.config(fg="#000000")
+
+        if expfile_outdir_block:
+            self.lbl_expfile_outdir.config(fg="#a3a3a3")
+            self.ent_expfile_outdir.config(state="disabled")
+            self.btn_expfile_outdir.config(state="disabled")
+        else:
+            self.lbl_expfile_outdir.config(fg="#000000")
+            self.ent_expfile_outdir.config(state="normal")
+            self.btn_expfile_outdir.config(state="normal")
+
+        if expfile_name_block:
+            self.lbl_expfile_name.config(fg="#a3a3a3")
+            self.ent_expfile_name.config(state="disabled")
+        else:
+            self.lbl_expfile_name.config(fg="#000000")
+            self.ent_expfile_name.config(state="normal")
+
+        if expfile_outtype_block:
+            self.lbl_expfile_outtype.config(fg="#a3a3a3")
+            self.combo_expfile_outtype.config(state="disabled")
+        else:
+            self.lbl_expfile_outtype.config(fg="#000000")
+            self.combo_expfile_outtype.config(state="normal")
+
+        if expfile_outtypeext:
+            self.chkbtn_expfile_outtypeext.config(state="disabled")
+        else:
+            self.chkbtn_expfile_outtypeext.config(state="normal")
+
+        if expfile_nameprev:
+            self.lbl_expfile_nameprev.config(fg="#cacaca")
+        else:
+            self.lbl_expfile_nameprev.config(fg="#666")
+
+        if btn_export:
+            self.btn_export.config(state="disabled", fg="#a3a3a3", bg="#649666")
+        else:
+            self.btn_export.config(state="normal", fg="#ffffff", bg="#4caf50")
+
+
+    def help1_tuto_pages(self, sum_type):
+        if sum_type:
+            if self.var_help1_pindex >= self.var_help1_page_max:
+                self.btn_help1_next.config(state="disabled")
+            else:
+                self.var_help1_pindex += 1
+        else:
+            if self.var_help1_pindex <= self.var_help1_page_min:
+                self.btn_help1_prev.config(state="disabled")
+            else:
+                self.var_help1_pindex -= 1
+        if self.var_help1_pindex > self.var_help1_page_min:
+            self.btn_help1_prev.config(state="normal")
+        if self.var_help1_pindex < self.var_help1_page_max:
+            self.btn_help1_next.config(state="normal")
+        if self.var_help1_pindex >= self.var_help1_page_max:
+            self.btn_help1_next.config(state="disabled")
+        if self.var_help1_pindex <= self.var_help1_page_min:
+            self.btn_help1_prev.config(state="disabled")
+
+        if self.var_help1_pindex == 1:
+            self.help1_shades(1,1,1,1,1,1,1,1,1)
+        if self.var_help1_pindex == 2:
+            self.help1_shades(0,1,1,1,1,1,1,1,1)
+        if self.var_help1_pindex == 3:
+            self.help1_shades(0,0,1,1,1,1,1,1,1)
+        if self.var_help1_pindex == 4:
+            self.help1_shades(1,1,0,1,1,1,1,1,1)
+        if self.var_help1_pindex == 5:
+            self.help1_shades(1,1,0,0,1,1,1,1,1)
+        if self.var_help1_pindex == 6:
+            self.help1_shades(1,1,0,1,0,1,1,1,1)
+        if self.var_help1_pindex == 7:
+            self.help1_shades(1,1,0,1,1,0,1,1,1)
+        if self.var_help1_pindex == 8:
+            self.help1_shades(1,1,0,1,1,1,0,1,1)
+        if self.var_help1_pindex == 9:
+            self.help1_shades(1,1,0,1,1,1,1,0,1)
+        if self.var_help1_pindex == 10:
+            self.help1_shades(1,1,1,1,1,1,1,1,0)
+        if self.var_help1_pindex == 11:
+            self.help1_shades(1,1,1,1,1,1,1,1,1)
+
+        self.lbl_help1_page.config(text=self.gettext("lbl_help1_pages")[self.var_help1_pindex - 1])
+        self.lbl_help1_pindex.config(text=f"{self.var_help1_pindex}/{self.var_help1_page_max}")
+
+    def help1_tuto_exit(self):
+        self.var_help1_active = False
+
+        self.btn_help1_tuto.grid(row=1, column=0, sticky="w", padx=(0,10))
+        self.btn_help2_outtypes.grid(row=1, column=1, sticky="w")
+
+        self.lbl_help1_page.grid_forget()
+        self.frame_help1_pcntl.grid_forget()
+
+        self.help1_shades(0,0,0,0,0,0,0,0,0)
+
+    def help2_outtypes(self):
+        self.var_help2_active = True
+
+        self.btn_help1_tuto.grid_forget()
+        self.btn_help2_outtypes.grid_forget()
+
+        self.lbl_help2_page.grid(row=1, column=0, sticky="w", pady=(0,5))
+        self.lbl_help2_page.config(text=self.gettext("lbl_help2_pages")[self.var_help2_pindex - 1])
+        self.frame_help2_pcntl.grid(row=2,column=0, sticky="w")
+        self.lbl_help2_pindex.grid(row=0, column=0, padx=(10,10))
+        self.lbl_help2_pindex.config(text=f"{self.var_help2_pindex}/{self.var_help2_page_max}")
+        self.btn_help2_prev.grid(row=0, column=1)
+        if self.var_help2_pindex > self.var_help2_page_min:
+            self.btn_help2_prev.config(state="normal")
+        self.btn_help2_next.grid(row=0, column=2)
+        if self.var_help2_pindex < self.var_help2_page_max:
+            self.btn_help2_next.config(state="normal")
+        self.btn_help2_exit.grid(row=0, column=3, padx=(10,0))
+
+        self.update_texts()
+
+    def help2_outtypes_pages(self, sum_type):
+        if sum_type:
+            if self.var_help2_pindex >= self.var_help2_page_max:
+                self.btn_help2_next.config(state="disabled")
+            else:
+                self.var_help2_pindex += 1
+        else:
+            if self.var_help2_pindex <= self.var_help2_page_min:
+                self.btn_help2_prev.config(state="disabled")
+            else:
+                self.var_help2_pindex -= 1
+        if self.var_help2_pindex > self.var_help2_page_min:
+            self.btn_help2_prev.config(state="normal")
+        if self.var_help2_pindex < self.var_help2_page_max:
+            self.btn_help2_next.config(state="normal")
+        if self.var_help2_pindex >= self.var_help2_page_max:
+            self.btn_help2_next.config(state="disabled")
+        if self.var_help2_pindex <= self.var_help2_page_min:
+            self.btn_help2_prev.config(state="disabled")
+
+        self.lbl_help2_page.config(text=self.gettext("lbl_help2_pages")[self.var_help2_pindex - 1])
+        self.lbl_help2_pindex.config(text=f"{self.var_help2_pindex}/{self.var_help2_page_max}")
+
+    def help2_outtypes_exit(self):
+        self.var_help2_active = False
+
+        self.btn_help1_tuto.grid(row=1, column=0, sticky="w", padx=(0,10))
+        self.btn_help2_outtypes.grid(row=1, column=1, sticky="w")
+
+        self.lbl_help2_page.grid_forget()
+        self.frame_help2_pcntl.grid_forget()
+
+    ## ---
     def nbfile_search(self):
         filename = filedialog.askopenfilename(filetypes=[("Smartboard notebook","*.notebook")])
         if filename:
@@ -284,11 +538,13 @@ class ExporterApp:
         return gui_locales.locales[self.var_lang].get(textkey, textkey)
 
     def update_texts(self):
-        self.ntbk_confhelp.tab(self.confhelp_tab1_ver, text=self.gettext("lbl_ver"))
+        self.ntbk_confhelp.tab(self.confhelp_tab1_help, text=self.gettext("lbl_help"))
+        self.lbl_help.config(text=self.gettext("lbl_help"))
+        self.ntbk_confhelp.tab(self.confhelp_tab2_ver, text=self.gettext("lbl_ver"))
         self.lbl_ver.config(text=self.gettext("lbl_ver"))
         self.lbl_ver_curtxt.config(text=self.gettext("lbl_ver_curtxt"))
         self.btn_ver_chkupd.config(text=self.gettext("btn_ver_chkupd"))
-        self.ntbk_confhelp.tab(self.confhelp_tab2_i18n, text=self.gettext("lbl_lang"))
+        self.ntbk_confhelp.tab(self.confhelp_tab3_i18n, text=self.gettext("lbl_lang"))
         self.lbl_lang.config(text=self.gettext("lbl_lang"))
         self.lbl_lang_info.config(text=self.gettext("lbl_lang_info"))
         self.lbl_nbfile.config(text=self.gettext("lbl_nbfile"))
@@ -306,6 +562,16 @@ class ExporterApp:
             self.btn_export.config(text=self.gettext("btn_export"))
         self.link_repo.config(text=self.gettext("link_repo"))
         self.link_license.config(text=self.gettext("link_license"))
+
+        if self.var_help1_active:
+            self.lbl_help1_page.config(text=self.gettext("lbl_help1_pages")[self.var_help1_pindex - 1])
+            self.btn_help1_exit.config(text=self.gettext("btn_help_exit"))
+        elif self.var_help2_active:
+            self.lbl_help2_page.config(text=self.gettext("lbl_help2_pages")[self.var_help2_pindex - 1])
+            self.btn_help2_exit.config(text=self.gettext("btn_help_exit"))
+        else:
+            self.btn_help1_tuto.config(text=self.gettext("btn_help1_tuto"))
+            self.btn_help2_outtypes.config(text=self.gettext("btn_help2_outtypes"))
 
         #self.test.config(text=self.gettext("test"))
 
