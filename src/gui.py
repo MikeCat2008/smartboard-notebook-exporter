@@ -73,32 +73,24 @@ class ExporterApp:
         self.ntbk_confhelp = ttk.Notebook(self.main_frame)
         self.ntbk_confhelp.grid(row=2, column=0, columnspan=4, sticky="ew")
 
-        ### --- Help Tab ---
-        self.confhelp_tab1_help = tk.Frame(self.ntbk_confhelp, bg="#f5f5f5", padx=5, pady=5)
-        self.ntbk_confhelp.add(self.confhelp_tab1_help)
+        ### --- i18n Tab ---
+        self.confhelp_tab1_i18n = tk.Frame(self.ntbk_confhelp, bg="#f5f5f5", padx=5, pady=5)
+        self.ntbk_confhelp.add(self.confhelp_tab1_i18n)
 
-        self.lbl_help = tk.Label(self.confhelp_tab1_help, font=("Arial", 12, "bold"), bg="#f5f5f5")
-        self.lbl_help.grid(row=0, column=0, sticky="w", pady=(0,10))
+        self.lbl_lang = tk.Label(self.confhelp_tab1_i18n, font=("Arial", 12, "bold"), bg="#f5f5f5")
+        self.lbl_lang.grid(row=0, column=0, sticky="w", pady=(0,5))
 
-        self.btn_help1_tuto = tk.Button(self.confhelp_tab1_help, text="Tutorial", command=self.help1_tuto)
-        self.btn_help1_tuto.grid(row=1, column=0, sticky="w", padx=(0,10))
+        self.lbl_lang_info = tk.Label(self.confhelp_tab1_i18n, font=("Arial", 10), bg="#f5f5f5")
+        self.lbl_lang_info.grid(row=1, column=0, sticky="w")
 
-        self.lbl_help1_page = tk.Label(self.confhelp_tab1_help, font=("Arial", 10), bg="#f5f5f5")
-        self.frame_help1_pcntl = tk.Frame(self.confhelp_tab1_help, bg="#f5f5f5")
-        self.lbl_help1_pindex = tk.Label(self.frame_help1_pcntl, font=("Arial", 10), bg="#f5f5f5")
-        self.btn_help1_prev = tk.Button(self.frame_help1_pcntl, text="<", command=lambda: self.help1_tuto_pages(False), state="disabled")
-        self.btn_help1_next = tk.Button(self.frame_help1_pcntl, text=">", command=lambda: self.help1_tuto_pages(True), state="disabled")
-        self.btn_help1_exit = tk.Button(self.frame_help1_pcntl, command=self.help1_tuto_exit)
+        self.frame_lang = tk.Frame(self.confhelp_tab1_i18n, bg="#f5f5f5")
+        self.frame_lang.grid(row=2, column=0, columnspan=2, sticky="w")
 
-        self.btn_help2_outtypes = tk.Button(self.confhelp_tab1_help, text="Output Types", command=self.help2_outtypes)
-        self.btn_help2_outtypes.grid(row=1, column=1, sticky="w")
+        self.btn_lang_es = tk.Button(self.frame_lang, text="ES", width="3", command=lambda: self.set_lang("es"))
+        self.btn_lang_es.grid(row=0, column=0, sticky="w", padx=(0, 5))
 
-        self.lbl_help2_page = tk.Label(self.confhelp_tab1_help, font=("Arial", 10), bg="#f5f5f5")
-        self.frame_help2_pcntl = tk.Frame(self.confhelp_tab1_help, bg="#f5f5f5")
-        self.lbl_help2_pindex = tk.Label(self.frame_help2_pcntl, font=("Arial", 10), bg="#f5f5f5")
-        self.btn_help2_prev = tk.Button(self.frame_help2_pcntl, text="<", command=lambda: self.help2_outtypes_pages(False), state="disabled")
-        self.btn_help2_next = tk.Button(self.frame_help2_pcntl, text=">", command=lambda: self.help2_outtypes_pages(True), state="disabled")
-        self.btn_help2_exit = tk.Button(self.frame_help2_pcntl, command=self.help2_outtypes_exit)
+        self.btn_lang_en = tk.Button(self.frame_lang, text="EN", width="3", command=lambda: self.set_lang("en"))
+        self.btn_lang_en.grid(row=0, column=1, sticky="w", padx=(0, 5))
 
         ### --- Version Tab ---
         self.confhelp_tab2_ver = tk.Frame(self.ntbk_confhelp, bg="#f5f5f5", padx=5, pady=5)
@@ -116,24 +108,32 @@ class ExporterApp:
         self.btn_ver_chkupd = tk.Button(self.confhelp_tab2_ver, command=lambda: webbrowser.open_new("https://github.com/MikeCat2008/smartboard-notebook-exporter/releases/latest"))
         self.btn_ver_chkupd.grid(row=2, column=0, columnspan=2, sticky="ew", padx=(0,10))
 
-        ### --- i18n Tab ---
-        self.confhelp_tab3_i18n = tk.Frame(self.ntbk_confhelp, bg="#f5f5f5", padx=5, pady=5)
-        self.ntbk_confhelp.add(self.confhelp_tab3_i18n)
+        ### --- Help Tab ---
+        self.confhelp_tab3_help = tk.Frame(self.ntbk_confhelp, bg="#f5f5f5", padx=5, pady=5)
+        self.ntbk_confhelp.add(self.confhelp_tab3_help)
 
-        self.lbl_lang = tk.Label(self.confhelp_tab3_i18n, font=("Arial", 12, "bold"), bg="#f5f5f5")
-        self.lbl_lang.grid(row=0, column=0, sticky="w", pady=(0,5))
+        self.lbl_help = tk.Label(self.confhelp_tab3_help, font=("Arial", 12, "bold"), bg="#f5f5f5")
+        self.lbl_help.grid(row=0, column=0, sticky="w", pady=(0,10))
 
-        self.lbl_lang_info = tk.Label(self.confhelp_tab3_i18n, font=("Arial", 10), bg="#f5f5f5")
-        self.lbl_lang_info.grid(row=1, column=0, sticky="w")
+        self.btn_help1_tuto = tk.Button(self.confhelp_tab3_help, text="Tutorial", command=self.help1_tuto)
+        self.btn_help1_tuto.grid(row=1, column=0, sticky="w", padx=(0,10))
 
-        self.frame_lang = tk.Frame(self.confhelp_tab3_i18n, bg="#f5f5f5")
-        self.frame_lang.grid(row=2, column=0, columnspan=2, sticky="w")
+        self.lbl_help1_page = tk.Label(self.confhelp_tab3_help, font=("Arial", 10), bg="#f5f5f5")
+        self.frame_help1_pcntl = tk.Frame(self.confhelp_tab3_help, bg="#f5f5f5")
+        self.lbl_help1_pindex = tk.Label(self.frame_help1_pcntl, font=("Arial", 10), bg="#f5f5f5")
+        self.btn_help1_prev = tk.Button(self.frame_help1_pcntl, text="<", command=lambda: self.help1_tuto_pages(False), state="disabled")
+        self.btn_help1_next = tk.Button(self.frame_help1_pcntl, text=">", command=lambda: self.help1_tuto_pages(True), state="disabled")
+        self.btn_help1_exit = tk.Button(self.frame_help1_pcntl, command=self.help1_tuto_exit)
 
-        self.btn_lang_es = tk.Button(self.frame_lang, text="ES", width="3", command=lambda: self.set_lang("es"))
-        self.btn_lang_es.grid(row=0, column=0, sticky="w", padx=(0, 5))
+        self.btn_help2_outtypes = tk.Button(self.confhelp_tab3_help, text="Output Types", command=self.help2_outtypes)
+        self.btn_help2_outtypes.grid(row=1, column=1, sticky="w")
 
-        self.btn_lang_en = tk.Button(self.frame_lang, text="EN", width="3", command=lambda: self.set_lang("en"))
-        self.btn_lang_en.grid(row=0, column=1, sticky="w", padx=(0, 5))
+        self.lbl_help2_page = tk.Label(self.confhelp_tab3_help, font=("Arial", 10), bg="#f5f5f5")
+        self.frame_help2_pcntl = tk.Frame(self.confhelp_tab3_help, bg="#f5f5f5")
+        self.lbl_help2_pindex = tk.Label(self.frame_help2_pcntl, font=("Arial", 10), bg="#f5f5f5")
+        self.btn_help2_prev = tk.Button(self.frame_help2_pcntl, text="<", command=lambda: self.help2_outtypes_pages(False), state="disabled")
+        self.btn_help2_next = tk.Button(self.frame_help2_pcntl, text=">", command=lambda: self.help2_outtypes_pages(True), state="disabled")
+        self.btn_help2_exit = tk.Button(self.frame_help2_pcntl, command=self.help2_outtypes_exit)
 
         ttk.Separator(self.main_frame, orient='horizontal').grid(row=3, column=0, columnspan=4, sticky="ew", pady=(10, 10))
 
@@ -366,6 +366,7 @@ class ExporterApp:
         self.frame_help1_pcntl.grid_forget()
 
         self.help1_shades(0,0,0,0,0,0,0,0,0)
+        self.update_texts()
 
     def help2_outtypes(self):
         self.var_help2_active = True
@@ -419,6 +420,8 @@ class ExporterApp:
 
         self.lbl_help2_page.grid_forget()
         self.frame_help2_pcntl.grid_forget()
+
+        self.update_texts()
 
     ## ---
     def nbfile_search(self):
@@ -538,13 +541,13 @@ class ExporterApp:
         return gui_locales.locales[self.var_lang].get(textkey, textkey)
 
     def update_texts(self):
-        self.ntbk_confhelp.tab(self.confhelp_tab1_help, text=self.gettext("lbl_help"))
+        self.ntbk_confhelp.tab(self.confhelp_tab3_help, text=self.gettext("lbl_help"))
         self.lbl_help.config(text=self.gettext("lbl_help"))
         self.ntbk_confhelp.tab(self.confhelp_tab2_ver, text=self.gettext("lbl_ver"))
         self.lbl_ver.config(text=self.gettext("lbl_ver"))
         self.lbl_ver_curtxt.config(text=self.gettext("lbl_ver_curtxt"))
         self.btn_ver_chkupd.config(text=self.gettext("btn_ver_chkupd"))
-        self.ntbk_confhelp.tab(self.confhelp_tab3_i18n, text=self.gettext("lbl_lang"))
+        self.ntbk_confhelp.tab(self.confhelp_tab1_i18n, text=self.gettext("lbl_lang"))
         self.lbl_lang.config(text=self.gettext("lbl_lang"))
         self.lbl_lang_info.config(text=self.gettext("lbl_lang_info"))
         self.lbl_nbfile.config(text=self.gettext("lbl_nbfile"))
