@@ -121,8 +121,8 @@ class ExporterApp:
         self.lbl_help1_page = tk.Label(self.confhelp_tab3_help, font=("Arial", 10), bg="#f5f5f5")
         self.frame_help1_pcntl = tk.Frame(self.confhelp_tab3_help, bg="#f5f5f5")
         self.lbl_help1_pindex = tk.Label(self.frame_help1_pcntl, font=("Arial", 10), bg="#f5f5f5")
-        self.btn_help1_prev = tk.Button(self.frame_help1_pcntl, text="<", command=lambda: self.help1_tuto_pages(False), state="disabled")
-        self.btn_help1_next = tk.Button(self.frame_help1_pcntl, text=">", command=lambda: self.help1_tuto_pages(True), state="disabled")
+        self.btn_help1_prev = tk.Button(self.frame_help1_pcntl, text="<", width="1", command=lambda: self.help1_tuto_pages(False), state="disabled")
+        self.btn_help1_next = tk.Button(self.frame_help1_pcntl, text=">", width="1", command=lambda: self.help1_tuto_pages(True), state="disabled")
         self.btn_help1_exit = tk.Button(self.frame_help1_pcntl, command=self.help1_tuto_exit)
 
         self.btn_help2_outtypes = tk.Button(self.confhelp_tab3_help, text="Output Types", command=self.help2_outtypes)
@@ -131,8 +131,8 @@ class ExporterApp:
         self.lbl_help2_page = tk.Label(self.confhelp_tab3_help, font=("Arial", 10), bg="#f5f5f5")
         self.frame_help2_pcntl = tk.Frame(self.confhelp_tab3_help, bg="#f5f5f5")
         self.lbl_help2_pindex = tk.Label(self.frame_help2_pcntl, font=("Arial", 10), bg="#f5f5f5")
-        self.btn_help2_prev = tk.Button(self.frame_help2_pcntl, text="<", command=lambda: self.help2_outtypes_pages(False), state="disabled")
-        self.btn_help2_next = tk.Button(self.frame_help2_pcntl, text=">", command=lambda: self.help2_outtypes_pages(True), state="disabled")
+        self.btn_help2_prev = tk.Button(self.frame_help2_pcntl, text="<", width="1", command=lambda: self.help2_outtypes_pages(False), state="disabled")
+        self.btn_help2_next = tk.Button(self.frame_help2_pcntl, text=">", width="1", command=lambda: self.help2_outtypes_pages(True), state="disabled")
         self.btn_help2_exit = tk.Button(self.frame_help2_pcntl, command=self.help2_outtypes_exit)
 
         ttk.Separator(self.main_frame, orient='horizontal').grid(row=3, column=0, columnspan=4, sticky="ew", pady=(10, 10))
