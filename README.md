@@ -210,11 +210,13 @@ Graphical User Interface. The GUI is available in both binary releases and sourc
 
 **Usage**
 
-When the program's GUI opens, the user will be prompted from top to bottom with the application name, the version management section, the GUI language selection, all the fields to configure all the parameters needed to export the notebook file, the export button and useful links.
+When the program's GUI opens, the user will be prompted from top to bottom with the application name, a tab system with the GUI language selection, the version management section, and the help section, all the fields to configure all parameters needed to export the notebook file, the export button and useful links.
 
-At the version management section the user can see the current build version of the app and check for updates. The `Check Updates` button is a link to the [Latest Release](https://github.com/MikeCat2008/smartboard-notebook-exporter/releases/latest) GitHub page, where the user can download the newest build of the app. It is highly recommended to check from time to time this page in order to be up to date with feature updates and bug fixes.
+The language selection is the first tab that the user will see of the tab system. This section shows the user the current language that is being used for the GUI and the buttons to choose the available languages. English (`EN`) is the default language.
 
-The language selection section shows the user the current language that is being used for the GUI and the buttons to choose the available languages. English is the default language.
+In the version management section (second tab) the user can see the current build version of the app and check for updates. The `Check Updates` button is a link to the [Latest Release](https://github.com/MikeCat2008/smartboard-notebook-exporter/releases/latest) GitHub page, where the user can download the newest build of the app. It is highly recommended to check this page from time to time in order to be up to date with feature updates and bug fixes.
+
+At the help section, in the third and last tab, the user can access both the `Tutorial` and the explanation about the `Output Types` available by pressing the respective buttons. The tutorial will guide the user on how to export their `.notebook` files by disabling most of the elements and only enabling the ones it is currently talking about. The Output Types help will display a short definition of each output type. Both help sections use the same controls: a page index display, arrows to go forward or backwards between the pages and an `EXIT` button to close the help section.
 
 The first group of fields is `Notebook File`, which lets the user choose what `.notebook` file to export by specifying the path to that file. The file can be specified by either typing the relative path to where the app has been launched or the absolute path, or selecting the file by pressing the `BROWSE` button. Only `.notebook` files are allowed. If the path to the file is empty, doesn't exist or is not a valid file, when trying to export, a window with an error will appear.
 

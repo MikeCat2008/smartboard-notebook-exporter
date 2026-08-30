@@ -201,7 +201,7 @@ Para poder exportar tu archivo `.notebook` al formato de salida deseado es neces
 - **Export Name** (opcional): Cambia el nombre del archivo de salida. Si se deja vacío, el nombre de salida mantendrá el mismo nombre que el archivo `.notebook` de entrada.
 - **Output Name Extension**: Bandera booleana para añadir al nombre del archivo de salida "_`Tipo de Conversión`". Si se deja vacío o se da una entrada errónea, se asumirá la opción por defecto (y, sí).
 
-Cualquier archivo exportado terminará con su respectiva ".`Extensión de Tipo de Conversión`
+Cualquier archivo exportado terminará con su respectiva ".`Extensión de Tipo de Conversión`".
 
 Tras la instalación, ejecuta el programa acorde al método de instalación seguido.
 
@@ -210,11 +210,13 @@ Interfáz Gráfica de Usuario (del inglés GUI, Graphical User Interface). La GU
 
 **Uso**
 
-Cuando la GUI del programa se abre, el usuario poddrá ver, descrito de arriba a abajo, el nombre de la aplicación, la sección para el manejo de la versión, la configuración del idioma de la GUI, todos los parámetros requeridos para exportar los archivos notebook, el botón de exportar y enlaces útiles.
+Cuando la GUI del programa se abre, el usuario podrá ver, descrito de arriba a abajo, el nombre de la aplicación, un sistema de pestañas con la configuración del idioma de la GUI, la sección para el manejo de la versión, y la sección de ayuda; todos los parámetros requeridos para exportar los archivos notebook, el botón de exportar y enlaces útiles.
 
-En la sección para el manejo de la versión, el usuario puede ver la versión de compilación actual del binario de su app y comprobar actualizaciones. El botón `Comprobar Actualizaciones` es un enlace a la página de GitHub de la [Latest Release](https://github.com/MikeCat2008/smartboard-notebook-exporter/releases/latest) (Último Lanzamiento), donde el usuario puede descargarse los binarios compilados más recientes de la app. Se recomienda encarecidamente revisar de vez en cuando esta página para estar al día con las actualizaciones y arreglo de bugs. 
+La sección de la configuración del idioma es la primera pestaña que el usuario verá del sistema de pestañas. Esta sección muestra al usuario el idioma que se está utilizando en la GUI y los botones para elegir las traducciones disponibles. El Inglés (`EN`) es el idioma por defecto.
 
-La sección de la configuración del idioma muestra al usuario el idioma que se está utilizando en la GUI y los botones para elegir las traducciones disponibles. Inglés es el idioma por defecto.
+La sección para la gestión de la versión (segunda pestaña) el usuario puede ver la versión de compilación actual del binario de su app y comprobar actualizaciones. El botón `Comprobar Actualizaciones` es un enlace a la página de GitHub de la [Latest Release](https://github.com/MikeCat2008/smartboard-notebook-exporter/releases/latest) (Último Lanzamiento), donde el usuario puede descargarse los binarios compilados más recientes de la app. Se recomienda encarecidamente revisar de vez en cuando esta página para estar al día con las actualizaciones y corrección de bugs.
+
+En la sección de ayuda, en la tercera y última pestaña, el usuario puede acceder tanto al `Tutorial` como a la explicación sobre los `Formatos de Salida` disponibles al pulsar sus respectivos botones. El tutorial guiará al usuario en cómo exportar su archivo `.notebook` al deshabilitar la mayoría de los elementos y solo activando aquellos de los que está hablando. La ayuda sobre los Formatos de Salida mostrará una breve definición sobre cada formato de salida. Ambas secciones de ayuda utilizan los mismos controles: un indicador de página, flechas para ir hacia adelante o hacia atrás entre las páginas y un botón de `SALIR` para cerrar la sección de ayuda.
 
 El primer grupo de campos es `Archivo Notebook`, el cuál deja al usuario elegir qué archivo `.notebook` exportar al especificar la ruta a dicho archivo. El archivo puede ser indicado escribiendo la ruta relativa a la ruta desde donde se ha lanzado la aplicación o con la ruta absoluta, o también utilizando el botón de `BUSCAR`. Solo se permiten archivos `.notebook`. Si la ruta al archivo se deja en blanco, no existe o no es un archivo válido, cuando se intente exportar, aparecerá una ventana con un aviso/error.
 
