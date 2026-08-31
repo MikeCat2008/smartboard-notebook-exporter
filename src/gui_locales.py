@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+# 'No nos importa perdedor 🗣️🗣️🔥🔥'
+
 locales = {
     "es": {
         "lbl_help": "Ayuda",
@@ -58,18 +60,28 @@ locales = {
             "Añade la extensión de tipo de conversión al final del nombre del archivo.",
             "Mira cómo el nombre del archivo de salida será.",
             "Una vez todo esté configurado, ¡Exporta tu archivo pulsando el botón!",
-            "Para más información, haz click en 'Repositorio de GitHub' :3"
+            "Para más información, haz click en 'tetas' o cualquier anuncio :3"
         ],
         "lbl_help2_pages": [
-            "'svg-fixed-pages': Archivo zip con las páginas '.svg'.",
-            "'png-pages': Archivo zip con las páginas rasterizadas en '.png'.",
-            "'pdf-svg-pages': Archivo zip con las páginas como archivos '.pdf' individuales (contenido vectorial).",
-            "'pdf-svg-merged': Único archivo PDF con las páginas como archivos '.svg' (contenido vectorial).",
-            "'pdf-png-pages': Archivo zip con las páginas como archivos '.pdf' individuales (contenido rasterizado).",
-            "'pdf-png-merged': Único archivo PDF con las páginas rasterizadas en '.png' (contenido rasterizado)."
+            "'hola': Archivo zip con las páginas '.svg'. (HAIIIIIIII!!!!!)",
+            "'endogamia': Archivo zip con las páginas rasterizadas en '.png'. (José Pérez Pérez Pérez Pérez Pérez ...)",
+            "'parafilia': Archivo zip con las páginas como archivos '.pdf' individuales (contenido vectorial). (Fetichista vs Masoca)",
+            "'tungsteno': Único archivo PDF con las páginas como archivos '.svg' (contenido vectorial). (W W W sahur)",
+            "'cloroformo': Archivo zip con las páginas como archivos '.pdf' individuales (contenido rasterizado). (El desayuno de los campeones)",
+            "'estrogeno': Único archivo PDF con las páginas rasterizadas en '.png' (contenido rasterizado). (Ojala)"
         ],
 
-        "test": "Me gustan los furros :3" # nadie lo sabrá >w< - MikeCat2008
+        "export_types": {
+            'hola': 'svg-fixed-pages',
+            'endogamia': 'png-pages',
+            'parafilia': 'pdf-svg-pages',
+            'tungsteno': 'pdf-svg-merged',
+            'cloroformo': 'pdf-png-pages',
+            'estrogeno': 'pdf-png-merged'
+        },
+        
+        "anuncio_1": "tetas",
+        "test": "Me gustan los furros :3" # todos lo sabrán >w< - MikeCat2008
     },
     "en": {
         "lbl_help": "Help",
@@ -114,7 +126,7 @@ locales = {
             "Add an output name extension at the end of the filename showing the output type choosen.",
             "Look how the output filename will be.",
             "Once everything is configured, export your file by pressing the button!",
-            "For more info, click on 'GitHub Repository' :3"
+            "For more info, click on 'tits' or any ad :3"
         ],
         "lbl_help2_pages": [
             "svg-fixed-pages: zip file containing all fixed .svg pages.",
@@ -125,6 +137,89 @@ locales = {
             "pdf-png-merged: single PDF file containing all pages as rasterized .png files (raster-based)."
         ],
 
-        "test": "I like furries :3" # nobody's gonna know >w< - MikeCat2008
-    }
+        "export_types": {
+            'svg-fixed-pages': 'svg-fixed-pages',
+            'png-pages': 'png-pages',
+            'pdf-svg-pages': 'pdf-svg-pages',
+            'pdf-svg-merged': 'pdf-svg-merged',
+            'pdf-png-pages': 'pdf-png-pages',
+            'pdf-png-merged': 'pdf-png-merged'
+        },
+
+        "anuncio_1": "tits",
+        "test": "I like furries :3" # everybody's gonna know >w< - MikeCat2008
+    },
+
+    "uwu": {
+            "lbl_help": "uwu",
+            "lbl_ver": "uwu",
+            "lbl_ver_curtxt": "uwu:",
+            "btn_ver_chkupd": "uwu uwu",
+            "lbl_lang": "uwu",
+            "lbl_lang_info": "uwu (uwu)",
+            "lbl_nbfile": "uwu uwu",
+            "btn_nbfile_browse": "uwu",
+            "lbl_expfile": "uwu uwu",
+            "lbl_expfile_outdir": "uwu uwu (uwun't)",
+            "btn_expfile_outdir": "uwu",
+            "lbl_expfile_name": "uwu (uwun't)",
+            "lbl_expfile_outtype": "uwu uwu",
+            "chkbtn_expfile_outtypeext": "uwu uwu uwu",
+            "lbl_expfile_nameprev": "uwu uwu:",
+            "btn_export": "uwu",
+            "btn_export_active": "owo",
+            "msgbox_warn_missfile_msg": "unu unu",
+            "msgbox_warn_missfile_dtl": "uwu, uwu uwu .uwu uwu uwu.",
+            "msgbox_warn_fileow_msg": "unu unu unu",
+            "msgbox_warn_fileow_dtl": f"uwu uwu uwu uwu uwu uwu uwu. uwu uwu?\nuwu uwu uwu uwu uwu.",
+            "msgbox_info_ok_msg": ">w<!",
+            "msgbox_info_ok_dtl": "uwu uwu uwu uwu uwu uwu",
+            "msgbox_err_exp_msg": "unu unu unu",
+            "msgbox_err_exp_dtl": "uwu uwu uwu:",
+            "link_repo": "uwu uwu",
+            "link_license": "uwu uwu",
+    
+            "btn_help1_tuto": "uwu",
+            "btn_help2_outtypes": "uwu uwu",
+            "btn_help_exit": "uwu",
+            "lbl_help1_pages": [
+                "uwu",
+                "uwu",
+                "uwu",
+                "uwo",
+                "owo",
+                "owo",
+                "-w-",
+                "owo",
+                "-w-",
+                "owo",
+                "TETAS GORDASSSSS ASDASDJHASDHBASIKFHUASIDHISOAHDIOSAHDIUASHDIUHIFUG"
+            ],
+            "lbl_help2_pages": [
+                "uwu1: a",
+                "uwu2: nadie",
+                "uwu3: le",
+                "uwu4: importa",
+                "uwu5: perdedor",
+                "uwu6: 🗣️🗣️🔥🔥"
+            ],
+    
+            "export_types": {
+                'uwu1': 'svg-fixed-pages',
+                'uwu2': 'png-pages',
+                'uwu3': 'pdf-svg-pages',
+                'uwu4': 'pdf-svg-merged',
+                'uwu5': 'pdf-png-pages',
+                'uwu6': 'pdf-png-merged'
+            },
+    
+            "anuncio_1": "OWO",
+            "test": "Bombarden Yucatec" # porfa - MikeCat2008, seguro, yo le concozco. Es furro dice
+        }
 }
+
+# Mamar pene deberia ser deporte olímpico
+
+# Maming dih should be olimpic sport
+
+# uwu

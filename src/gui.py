@@ -24,7 +24,12 @@ from tkinter import ttk, filedialog
 
 import webbrowser
 
+from PIL import Image, ImageTk
+
 from pathlib import Path
+
+import os
+SRC_PATH = os.path.dirname(os.path.abspath(__file__)) +'/'
 
 class ExporterApp:
     def __init__(self, root):
@@ -92,6 +97,9 @@ class ExporterApp:
         self.btn_lang_en = tk.Button(self.frame_lang, text="EN", width="3", command=lambda: self.set_lang("en"))
         self.btn_lang_en.grid(row=0, column=1, sticky="w", padx=(0, 5))
 
+        self.btn_lang_en = tk.Button(self.frame_lang, text="UWU", width="3", command=lambda: self.set_lang("uwu"))
+        self.btn_lang_en.grid(row=0, column=2, sticky="w", padx=(0, 5))
+
         ### --- Version Tab ---
         self.confhelp_tab2_ver = tk.Frame(self.ntbk_confhelp, bg="#f5f5f5", padx=5, pady=5)
         self.ntbk_confhelp.add(self.confhelp_tab2_ver)
@@ -139,68 +147,97 @@ class ExporterApp:
 
         ## --- Notebook File Section ---
         self.lbl_nbfile = tk.Label(self.main_frame, font=("Arial", 14, "bold"), bg="#f5f5f5")
-        self.lbl_nbfile.grid(row=4, column=0, sticky="w")
+        self.lbl_nbfile.grid(row=5, column=0, sticky="w")
 
         self.ent_nbfile = tk.Entry(self.main_frame, textvariable=self.var_nbfile, width=40)
-        self.ent_nbfile.grid(row=5, column=0, columnspan=3, sticky="ew", padx=(0, 10), pady=10)
+        self.ent_nbfile.grid(row=6, column=0, columnspan=3, sticky="ew", padx=(0, 10), pady=10)
 
         self.btn_nbfile_browse = tk.Button(self.main_frame, command=self.nbfile_search)
-        self.btn_nbfile_browse.grid(row=5, column=3, sticky="ew")
+        self.btn_nbfile_browse.grid(row=6, column=3, sticky="ew")
 
         ## --- Export File Section ---
         self.lbl_expfile = tk.Label(self.main_frame, font=("Arial", 14, "bold"), bg="#f5f5f5")
-        self.lbl_expfile.grid(row=6, column=0, sticky="w", pady=(20, 5))
+        self.lbl_expfile.grid(row=7, column=0, sticky="w", pady=(20, 5))
 
         ### Output Directory
         self.lbl_expfile_outdir = tk.Label(self.main_frame, font=("Arial", 10), bg="#f5f5f5")
-        self.lbl_expfile_outdir.grid(row=7, column=0, sticky="w")
+        self.lbl_expfile_outdir.grid(row=8, column=0, sticky="w")
 
         self.ent_expfile_outdir = tk.Entry(self.main_frame, textvariable=self.var_expfile_outdir)
-        self.ent_expfile_outdir.grid(row=8, column=0, columnspan=3, sticky="ew", padx=(0, 10), pady=5)
+        self.ent_expfile_outdir.grid(row=9, column=0, columnspan=3, sticky="ew", padx=(0, 10), pady=5)
 
         self.btn_expfile_outdir = tk.Button(self.main_frame, command=self.expfile_outfold_search)
-        self.btn_expfile_outdir.grid(row=8, column=3, sticky="ew")
+        self.btn_expfile_outdir.grid(row=9, column=3, sticky="ew")
 
         ### Custom Name
         self.lbl_expfile_name = tk.Label(self.main_frame, font=("Arial", 10), bg="#f5f5f5")
-        self.lbl_expfile_name.grid(row=9, column=0, sticky="w", pady=(10, 0))
+        self.lbl_expfile_name.grid(row=10, column=0, sticky="w", pady=(10, 0))
 
         self.ent_expfile_name = tk.Entry(self.main_frame, textvariable=self.var_expfile_name)
-        self.ent_expfile_name.grid(row=10, column=0, sticky="ew", padx=(0, 5))
+        self.ent_expfile_name.grid(row=11, column=0, sticky="ew", padx=(0, 5))
 
         ### Output Type
         self.lbl_expfile_outtype = tk.Label(self.main_frame, font=("Arial", 10), bg="#f5f5f5")
-        self.lbl_expfile_outtype.grid(row=9, column=1, sticky="w", pady=(10, 0))
+        self.lbl_expfile_outtype.grid(row=10, column=1, sticky="w", pady=(10, 0))
 
         self.combo_expfile_outtype = ttk.Combobox(self.main_frame, state="readonly", textvariable=self.var_expfile_outtype, values=['svg-fixed-pages', 'png-pages', 'pdf-svg-pages', 'pdf-png-pages', 'pdf-svg-merged', 'pdf-png-merged'])
         self.combo_expfile_outtype.current(4)
-        self.combo_expfile_outtype.grid(row=10, column=1, columnspan=2, sticky="ew", padx=5)
+        self.combo_expfile_outtype.grid(row=11, column=1, columnspan=2, sticky="ew", padx=5)
 
         ### Output Type Extension Label
         self.chkbtn_expfile_outtypeext = tk.Checkbutton(self.main_frame, variable=self.var_expfile_outtypeext, bg="#f5f5f5")
-        self.chkbtn_expfile_outtypeext.grid(row=10, column=3)
+        self.chkbtn_expfile_outtypeext.grid(row=11, column=3)
 
         ### Name Preview
         self.lbl_expfile_nameprev = tk.Label(self.main_frame, font=("Courier", 10, "italic"), fg="#666", bg="#f5f5f5")
-        self.lbl_expfile_nameprev.grid(row=11, column=0, columnspan=4, sticky="w", pady=(5, 0))
+        self.lbl_expfile_nameprev.grid(row=12, column=0, columnspan=4, sticky="w", pady=(5, 0))
 
         ## --- Export Button ---
         self.btn_export = tk.Button(self.main_frame, command=self.export_start, bg="#4caf50", fg="white", font=("Arial", 12, "bold"), height=2)
-        self.btn_export.grid(row=12, column=0, columnspan=4, sticky="ew", pady=30)
+        self.btn_export.grid(row=13, column=0, columnspan=4, sticky="ew", pady=30)
 
         ## --- Links ---
         ### Link to Repo
         self.link_repo = tk.Label(self.main_frame, fg="#0056b3", bg="#f5f5f5", cursor="hand2", font=("Arial", 8, "underline"))
-        self.link_repo.grid(row=13, column=0, sticky="w")
+        self.link_repo.grid(row=14, column=0, sticky="w")
         self.link_repo.bind("<Button-1>", lambda a: webbrowser.open_new("https://github.com/MikeCat2008/smartboard-notebook-exporter"))
 
         ### Link to License
         self.link_license = tk.Label(self.main_frame, fg="#0056b3", bg="#f5f5f5", cursor="hand2", font=("Arial", 8, "underline"))
-        self.link_license.grid(row=14, column=0, sticky="w")
+        self.link_license.grid(row=15, column=0, sticky="w")
         self.link_license.bind("<Button-1>", lambda a: webbrowser.open_new("https://www.gnu.org/licenses/gpl-3.0.html"))
 
-        #self.test = tk.Label(root, font=("Arial", 14))
-        #self.test.pack()
+        ### ANUNCIO 1 !¿?!¿?!¿?!¿?!¿!?!'¡!¿?!?¿!?¿¿?!?¿!?!¿!¿?¿?
+        self.anuncio_1 = tk.Label(self.main_frame, fg="#0056b3", bg="#f5f5f5", cursor="hand2", font=("Arial", 8, "underline"))
+        self.anuncio_1.grid(row=16, column=0, sticky="ew")
+        self.anuncio_1.bind("<Button-1>", lambda a: webbrowser.open_new("https://media.tenor.com/Gi2zoa_JE5cAAAAj/locuraaaaaaaa-gato-lengua.gif"))
+
+        ### ANUNCIO 2 - ahora si
+        ad_img_1 = ImageTk.PhotoImage(Image.open(SRC_PATH+'imgs/Gemini_Generated_Image_1.jpeg').resize((567,100), Image.Resampling.LANCZOS))
+        self.anuncio_2 = tk.Label(self.main_frame, image=ad_img_1, cursor="hand2")
+        self.anuncio_2.image = ad_img_1
+        self.anuncio_2.grid(row=4,column=0, columnspan=4, sticky="w")
+        self.anuncio_2.bind("<Button-1>", lambda a: webbrowser.open_new("https://www.youtube.com/watch?v=jM7Vzzkz8z0"))
+        
+
+        ### ANUNCIO 3 - ahora tambien
+        ad_img_2 = ImageTk.PhotoImage(Image.open(SRC_PATH+'imgs/Gemini_Generated_Image_2.jpeg').resize((167,760), Image.Resampling.LANCZOS))
+        self.anuncio_3 = tk.Label(self.main_frame, image=ad_img_2, cursor="hand2")
+        self.anuncio_3.image = ad_img_2
+        self.anuncio_3.grid(row=1,column=4, rowspan=260, sticky="w")
+        self.anuncio_3.bind("<Button-1>", lambda a: webbrowser.open_new("https://www.gentoo.org/get-involved/get-code/"))
+
+        ### ANUNCIO 4 - puto copilot
+        ad_img_3 = ImageTk.PhotoImage(Image.open(SRC_PATH+'imgs/anuncio.png').resize((300,210), Image.Resampling.LANCZOS))
+        self.anuncio_4 = tk.Label(self.main_frame, image=ad_img_3, cursor='watch')
+        self.anuncio_4.image = ad_img_3
+        self.anuncio_4.grid(row=17,column=1, columnspan=3, sticky="ew")
+        self.anuncio_4.bind("<Button-1>", lambda a: webbrowser.open_new("https://www.youtube.com/watch?v=s1EASMvoDXc"))
+
+        ### ANUNCIO 5 - ahora no
+
+        self.test = tk.Label(self.main_frame, font=("Arial", 14))
+        self.test.grid(row=17,column=0, sticky="w")
 
         self.update_texts()
 
@@ -450,7 +487,14 @@ class ExporterApp:
             'pdf-svg-pages': 'zip',
             'pdf-png-pages': 'zip',
             'pdf-svg-merged': 'pdf',
-            'pdf-png-merged': 'pdf'
+            'pdf-png-merged': 'pdf',
+
+            'hola' : 'zip',
+            'endogamia': 'zip',
+            'parafilia': 'zip',
+            'tungsteno': 'zip',
+            'cloroformo': 'pdf',
+            'estrogeno': 'pdf'
         }
         ext = outtype_ext_map.get(outtype, "ext")
         if self.var_expfile_outtypeext.get():
@@ -488,7 +532,7 @@ class ExporterApp:
 
     def export_process(self):
         infile = self.var_nbfile.get().strip()
-        export_type = self.var_expfile_outtype.get()
+        export_type = self.gettext("export_types").get(self.var_expfile_outtype.get())
         export_path = self.var_expfile_outdir.get().strip()  # If empty ""
         export_name = self.var_expfile_name.get().strip() # If empty: ""
         otnextension_bool = self.var_expfile_outtypeext.get()
@@ -576,7 +620,13 @@ class ExporterApp:
             self.btn_help1_tuto.config(text=self.gettext("btn_help1_tuto"))
             self.btn_help2_outtypes.config(text=self.gettext("btn_help2_outtypes"))
 
-        #self.test.config(text=self.gettext("test"))
+        self.test.config(text=self.gettext("test"))
+        self.anuncio_1.config(text=self.gettext("anuncio_1"))
+
+        remember_bro = self.combo_expfile_outtype['values'].index(self.combo_expfile_outtype.get())
+        self.combo_expfile_outtype['values'] = list(self.gettext("export_types").keys())
+        self.combo_expfile_outtype.current(remember_bro)
+            
 
 if __name__ == "__main__":
     root = tk.Tk()
